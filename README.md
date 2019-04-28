@@ -15,25 +15,25 @@ as stand-alone. Feel free to use them in your own configuration. :)
 Folders
 -------
 
-### `/host`
+### `/hosts`
 
 All my devices are defined here.
 
 ### `/profiles`
 
-Profiles which define the base structure of a Device.
+Profiles which define the base structure of a device.
 
 ### `/modules`
 
 Configuration of NixOS modules using the same directory structure as the
 official [nixpkgs](https://github.com/NixOS/nixpkgs/tree/master/nixos/modules)
-Repository.
+repository.
 
 ### `/overlays`
 
 Miscellaneous configurations.
 
-### `/user`
+### `/users`
 
 Unix user definitions.
 
