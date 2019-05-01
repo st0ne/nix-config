@@ -11,7 +11,17 @@
 
   ### BOOT #####################################################################
   boot = {
-    initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+      luks.devices = [
+        {
+          # cryptdevice with all my persistent data
+          name = "data";
+          device = "/dev/T580/data";
+          preLVM = false;
+        }
+      ];
+    };
     kernelModules = [ "kvm-intel" ];
     kernelParams = [
       # some intel video driver tweeks
@@ -28,9 +38,6 @@
 
   ### FSTAB ####################################################################
   # nvme SSD
-  # TODO: - encrypted /data partition, with contains my sensitive data.
-  #       - generic filesystem configuration, with uses the device hostname as
-  #         lvm volume group.
   fileSystems = {
     "/" = {
       device = "/dev/T580/nixos";
@@ -42,9 +49,9 @@
       device = "/dev/nvme0n1p2";
       fsType = "vfat";
     };
-
+    # partition with persistent data (user & host)
     "/data" = {
-      device = "/dev/T580/data";
+      device = "/dev/mapper/data";
       fsType = "ext4";
       options = [ "noatime" "discard" ];
     };
