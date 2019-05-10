@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 ## main personal Laptop
 # Lenovo Thinkpad T580
@@ -9,14 +9,17 @@
 
 {
   imports = [
-    ./hardware.nix
+    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
     ../../profiles/laptop.nix
     # modules
+    ../../modules/hardware/cpu/intel/default.nix
     ../../modules/services/xserver/window-managers/i3.nix
     ../../modules/programs/zsh.nix
+    ../../modules/services/hardware/pcscd.nix
     # overlays
     ../../overlays/HiDPI.nix
+    ../../overlays/no-nvidia.nix
     ../../overlays/intel-vaapi.nix
     ../../overlays/xorg-no-sleep.nix
     # users
@@ -24,15 +27,21 @@
   ];
 
   ### GENERAL ##################################################################
-  networking.hostName = "T580";
+  general.name = "T580";
+  general.boot.efi = "/dev/nvme0n1p2";
+  general.boot.encryptData = true;
+
   system.stateVersion = "18.09";
+  nix.maxJobs = lib.mkDefault 8;
 
   ### USER #####################################################################
   users.users.sylv.extraGroups = [
-    "wheel" #privileged user
-    "networkmanager" #manage network
+    "wheel" # privileged user
+    "networkmanager" # manage network
     "video" # hardware acceleration access
-    "docker" #allow direct docker api access (Warning: The docker group grants
+    "dialout" # allow serial console access
+    "libvirtd" # manage libvirt vms
+    "docker" # allow direct docker api access (Warning: The docker group grants
     # privileges equivalent to the root user.
     # [https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface)
   ];
@@ -52,6 +61,6 @@ glx-swap-method = "buffer-age";
   };
 
   ### VIRTUALISATION ###########################################################
-  # enable docker
   virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
 }

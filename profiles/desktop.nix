@@ -18,10 +18,37 @@ in
   ];
 
   ### BOOT #####################################################################
-  # splash screen
+ 
   boot = {
-    kernelParams = [ "quiet" ];
-    plymouth.enable = true;
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+      luks.devices = lib.mkIf config.general.boot.encryptData [
+      {
+        # cryptdevice with all my persistent data
+        name = "data";
+        device = "/dev/${config.general.name}/data";
+        preLVM = false;
+      }
+      ];
+    };
+  };
+  fileSystems = lib.mkIf config.general.boot.default {
+    "/" = {
+      device = "/dev/${config.general.name}/nixos";
+      fsType = "ext4";
+      options = [ "noatime" "discard" ];
+   };
+     "/boot/efi" = {
+      device = config.general.boot.efi;
+      fsType = "vfat";
+    };
+    # partition with persistent data (user & host)
+
+    "/data" = {
+      device = if config.general.boot.encryptData then "/dev/mapper/data" else "/dev/${config.general.name}/data";
+      fsType = "ext4";
+      options = [ "noatime" "discard" ];
+    };
   };
 
   ### HARDWARE #################################################################
@@ -48,6 +75,8 @@ in
   environment.etc = {
     # alacritty
     "per-user/alacritty/alacritty.yml".text = import ../configs/alacritty/default.nix {};
+    # dunst
+    "per-user/dunst/dunstrc".text = import ../configs/dunst/default.nix {};
   };
   system.activationScripts = {
     networkmanagerSetup = {
@@ -63,6 +92,10 @@ in
       text = '' ln -sfn /etc/per-user/alacritty ~/.config/ '';
       deps = [];
     };
+    dunstSetup = {
+      text = '' ln -sfn /etc/per-user/dunst ~/.config/ '';
+      deps = [];
+    };
   };
 
   ### PKGS #####################################################################
@@ -72,9 +105,11 @@ in
   environment.systemPackages = with pkgs; [
     # general
     lxappearance-gtk3
+    zathura
 
     # terminal
     unstable.alacritty
+    #alacritty
 
     # gnupg
     gpa
@@ -136,10 +171,18 @@ in
     xserver = {
       # enable xserver by default
       enable = lib.mkDefault true;
-      useGlamor = true;
+      useGlamor = lib.mkDefault true;
       displayManager = {
         lightdm = {
           enable = lib.mkDefault true;
+          greeters = {
+            gtk = {
+              enable = lib.mkDefault true;
+              cursorTheme = {
+                size = 48;
+              };
+            };
+          };
         };
       };
       desktopManager = {

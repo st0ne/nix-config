@@ -1,9 +1,14 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 # Base profile, with will be included in any host. It includes essential
 # configurations and pkgs.
 
 {
+  imports = 
+    [
+      ../options/general.nix # custom options
+    ];
+
   ### BOOT #####################################################################
   boot = {
     cleanTmpDir = lib.mkDefault true;
@@ -34,7 +39,30 @@
     consoleKeyMap = lib.mkDefault "us";
     defaultLocale = lib.mkDefault "en_US.UTF-8";
   };
+  # timezone
   time.timeZone = lib.mkDefault "Europe/Berlin";
+
+  # hostname
+  networking.hostName = config.general.name;
+
+  # vim as default editor
+  programs.vim.defaultEditor = true;
+
+  ### CONFIGS ##################################################################
+  # generate a static config path
+  environment.etc = {
+    # htop
+    "per-user/htop/htoprc".text = import ../configs/htop/default.nix {};
+
+  };
+  system.activationScripts = {
+    };
+  system.userActivationScripts = {
+    htopSetup = {
+      text = '' ln -sfn /etc/per-user/htop ~/.config/ '';
+      deps = [];
+    };
+  };
 
   ### PKGS #####################################################################
   environment.systemPackages = with pkgs; [
@@ -44,6 +72,7 @@
     screen
     tree
     git
+    dhcpcd
 
     ## analysis
     # files
