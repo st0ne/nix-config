@@ -8,7 +8,6 @@
     # parent
     ./base.nix
 
-    ./desktop/boot.nix
     ./desktop/config.nix
     ./desktop/pkgs.nix
     ./desktop/x11.nix

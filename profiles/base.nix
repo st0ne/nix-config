@@ -9,6 +9,7 @@
     ../options/general.nix # custom options
     
     ./base/boot.nix
+    ./base/fstab.nix
     ./base/env.nix
     ./base/config.nix
     ./base/pkgs.nix
