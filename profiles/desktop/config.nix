@@ -39,6 +39,10 @@
       text = '' ln -sfn /data/user/$USER/Config/mozilla ~/.mozilla '';
       deps = [];
     };
+    thunderbirdSetup = {
+      text = '' ln -sfn /data/user/$USER/Config/thunderbird ~/.thunderbird '';
+      deps = [];
+    };
     qutebrowserSetup = {
       text = '' ln -sfn /data/user/$USER/Config/qutebrowser ~/.config/ '';
       deps = [];

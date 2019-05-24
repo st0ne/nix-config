@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 ## main personal Laptop
 # Lenovo Thinkpad T580

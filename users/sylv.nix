@@ -13,5 +13,6 @@ in
     uid = secret.uid;
     group = "users";
     initialHashedPassword = secret.initialHashedPassword;
+    openssh.authorizedKeys.keys = secret.authorizedKeys.keys;
   };
 }
