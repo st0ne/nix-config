@@ -7,16 +7,17 @@ in
 {
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
-    #profile
+    # profile
     ../../profiles/headless.nix
+    # modules
+    ../../modules/hardware/cpu/amd/default.nix
     # overlays
     ../../overlays/bios-grub.nix
     # users
     ../../users/sylv.nix
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "sd_mod" "sdhci_pci" ];
 
   ### GENERAL ##################################################################
   general.name = "gate";
