@@ -1,7 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
 
 let
-  secret = import ./sylv_secret.nix {};
+  secret = import ../secrets.nix {};
 in
 {
   users.users.sylv = {
@@ -10,9 +10,13 @@ in
     description = "Marcello Sylvester Bauer";
     createHome = true;
     shell = "/run/current-system/sw/bin/zsh";
-    uid = secret.uid;
+    uid = 1337;
     group = "users";
-    initialHashedPassword = secret.initialHashedPassword;
-    openssh.authorizedKeys.keys = secret.authorizedKeys.keys;
+    initialHashedPassword = secret.sylv.initialHashedPassword;
+    openssh.authorizedKeys.keys = secret.sylv.authorizedKeys.keys;
   };
+  environment.systemPackages = with pkgs; [
+    ## zsh
+    zsh
+  ];
 }

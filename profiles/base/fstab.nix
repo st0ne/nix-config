@@ -3,7 +3,6 @@
 {
   boot = {
     initrd = {
-      availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
       luks.devices = lib.mkIf config.general.boot.encryptData [
       {
         # cryptdevice with all my persistent data
@@ -20,7 +19,7 @@
       fsType = "ext4";
       options = [ "noatime" "discard" ];
    };
-     "/boot/efi" = {
+     "/boot/efi" = lib.mkIf config.boot.loader.grub.efiSupport {
       device = config.general.boot.efi;
       fsType = "vfat";
     };

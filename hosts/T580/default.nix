@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ ... }:
 
 ## main personal Laptop
 # Lenovo Thinkpad T580
@@ -26,13 +26,16 @@
     ../../users/sylv.nix
   ];
 
+  ### INIT #####################################################################
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+
   ### GENERAL ##################################################################
   general.name = "T580";
   general.boot.efi = "/dev/nvme0n1p2";
   general.boot.encryptData = true;
 
   system.stateVersion = "18.09";
-  nix.maxJobs = lib.mkDefault 8;
+  nix.maxJobs = 8;
 
   ### USER #####################################################################
   users.users.sylv.extraGroups = [

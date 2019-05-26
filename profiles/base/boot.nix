@@ -15,8 +15,8 @@
       grub = {
         enable = lib.mkDefault true;
         version = 2;
-        device = "nodev";
-        efiSupport = true;
+        device = lib.mkDefault "nodev";
+        efiSupport = lib.mkDefault true;
       };
     };
     kernelParams = [
