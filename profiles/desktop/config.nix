@@ -1,18 +1,6 @@
 { ... }:
 
 {
-  # generate a static config path
-  environment.etc = {
-    # alacritty
-    "per-user/alacritty/alacritty.yml".text = import ../../configs/alacritty/default.nix {};
-    # dunst
-    "per-user/dunst/dunstrc".text = import ../../configs/dunst/default.nix {};
-    # mimeapps
-    "per-user/mimeapps.list".text = import ../../configs/mimeapps/list.nix {};
-    # X11
-    "per-user/X11/Xmodmap".text = import ../../configs/x11/xmodmap.nix {};
-
-  };
   system.activationScripts = {
     networkmanagerSetup = {
       text = ''
@@ -24,15 +12,15 @@
   };
   system.userActivationScripts = {
     alacrittySetup = {
-      text = '' ln -sfn /etc/per-user/alacritty ~/.config/ '';
+      text = '' ln -sfn /data/user/$USER/Config/alacritty ~/.config/ '';
       deps = [];
     };
     dunstSetup = {
-      text = '' ln -sfn /etc/per-user/dunst ~/.config/ '';
+      text = '' ln -sfn /data/user/$USER/Config/dunst ~/.config/ '';
       deps = [];
     };
     mimeappsSetup = {
-      text = '' ln -sfn /etc/per-user/mimeapps.list ~/.config/ '';
+      text = '' ln -sfn /data/user/$USER/Config/mimeapps.list ~/.config/mimeapps.list '';
       deps = [];
     };
     mozillaSetup = {
@@ -52,7 +40,7 @@
       deps = [];
     };
     x11Setup = {
-      text = '' ln -sfn /etc/per-user/X11/Xmodmap ~/.Xmodmap '';
+      text = '' ln -sfn /data/user/$USER/Config/X11/Xmodmap ~/.Xmodmap '';
       deps = [];
     };
   };

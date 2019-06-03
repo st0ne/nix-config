@@ -4,18 +4,12 @@
 # ref: https://nixos.wiki/wiki/I3
 
 {
-  environment = {
-    pathsToLink = [ "/libexec" ];
-    # add i3 config file
-    etc."per-user/i3/config".text = import ../../../../configs/i3/config/default.nix {};
-    # i3status
-    etc."per-user/i3/i3status".text = import ../../../../configs/i3/i3status/default.nix {};
-  };
+  environment.pathsToLink = [ "/libexec" ];
 
   system.userActivationScripts = {
     # link to i3 config file
     i3Setup = {
-      text = '' ln -sfn /etc/per-user/i3 ~/.config '';
+      text = '' ln -sfn /data/user/$USER/Config/i3/${config.general.name}/ ~/.config/i3 '';
       deps = [];
     };
   };
