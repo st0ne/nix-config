@@ -42,6 +42,14 @@
         default = "none";
       };
     };
+    logind = {
+    # Required for our screen-lock-on-suspend functionality
+      extraConfig = ''
+        LidSwitchIgnoreInhibited=False
+        HandleLidSwitch=suspend
+        HoldoffTimeoutSec=10
+      '';
+    };
     # adjusts the color temperature of your screen at night
     redshift = {
       enable = lib.mkDefault true;

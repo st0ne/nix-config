@@ -11,6 +11,7 @@
     ./desktop/config.nix
     ./desktop/pkgs.nix
     ./desktop/x11.nix
+    ./desktop/theme.nix
   ];
 
   ### HARDWARE #################################################################

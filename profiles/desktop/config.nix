@@ -2,6 +2,12 @@
 
 {
   system.activationScripts = {
+    init = {
+      text = ''
+        mkdir -p /root/.gnupg/
+      '';
+      deps = [];
+    };
     networkmanagerSetup = {
       text = ''
         mkdir -p /data/host/networkmanager/system-connections/
@@ -11,6 +17,10 @@
     };
   };
   system.userActivationScripts = {
+    DataSetup = {
+      text = '' ln -sfn /data/user/$USER/ ~/Data '';
+      deps = [];
+    };
     alacrittySetup = {
       text = '' ln -sfn /data/user/$USER/Config/alacritty ~/.config/ '';
       deps = [];
@@ -20,7 +30,7 @@
       deps = [];
     };
     mimeappsSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/mimeapps.list ~/.config/mimeapps.list '';
+      text = '' ln -sfn /data/user/$USER/Config/mimeapps.list ~/.config/ '';
       deps = [];
     };
     mozillaSetup = {
@@ -36,7 +46,7 @@
       deps = [];
     };
     vscodeSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/vscode ~/.vscode/ '';
+      text = '' ln -sfn /data/user/$USER/Config/vscode ~/.vscode '';
       deps = [];
     };
     x11Setup = {

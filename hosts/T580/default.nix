@@ -17,6 +17,7 @@
     ../../modules/services/xserver/window-managers/i3.nix
     ../../modules/programs/zsh.nix
     ../../modules/services/hardware/pcscd.nix
+    ../../modules/virtualisation/libvirtd/default.nix
     # overlays
     ../../overlays/HiDPI.nix
     ../../overlays/no-nvidia.nix
@@ -31,7 +32,7 @@
 
   ### GENERAL ##################################################################
   general.name = "T580";
-  general.boot.efi = "/dev/nvme0n1p2";
+  general.boot.efi = "/dev/nvme0n1p1";
   general.boot.encryptData = true;
 
   system.stateVersion = "18.09";
@@ -65,7 +66,4 @@ glx-swap-method = "buffer-age";
 
   ### VIRTUALISATION ###########################################################
   virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
-  virtualisation.virtualbox.host.enable = true;
-
 }

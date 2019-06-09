@@ -5,6 +5,7 @@
 
 {
   environment.pathsToLink = [ "/libexec" ];
+  environment.systemPackages = [ (pkgs.polybar.override { i3Support = true; }) ];
 
   system.userActivationScripts = {
     # link to i3 config file
@@ -12,29 +13,35 @@
       text = '' ln -sfn /data/user/$USER/Config/i3/${config.general.name}/ ~/.config/i3 '';
       deps = [];
     };
+    polybarSetup = {
+      text = '' ln -sfn /data/user/$USER/Config/polybar/${config.general.name} ~/.config/polybar '';
+      deps = [];
+    };
   };
 
   services.xserver.windowManager.i3 = {
     enable = true;
     extraPackages = with pkgs; [
+      # app launcher
       dmenu
-      i3lock
-      i3status
-      i3blocks
+      j4-dmenu-desktop
+
       light
       acpi
 
-      polybar
-      cairo
-      xorg.libxcb
-      xorg.xcbproto
-      xorg.xcbutilimage
-      xorg.xcbutilwm
-      xorg.xcbutilcursor
-      xcbutilxrm
       alsaLib
       libpulseaudio
       mpd_clientlib
+
+      # polybar
+      polybar
+      cairo
+      siji
+
+      # misc bars
+      i3lock
+      i3status
+      i3blocks
     ];
   };
   # control backlight
