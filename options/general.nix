@@ -30,6 +30,13 @@ with lib;
         encrypted data partition
         '';
       };
+      encryptHome = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+        encrypted home partition
+        '';
+      };
     };
   };
 }

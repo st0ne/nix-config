@@ -34,6 +34,7 @@
   general.name = "T580";
   general.boot.efi = "/dev/nvme0n1p1";
   general.boot.encryptData = true;
+  general.boot.encryptHome = true;
 
   system.stateVersion = "18.09";
   nix.maxJobs = 8;
