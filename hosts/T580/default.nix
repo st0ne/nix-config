@@ -11,7 +11,7 @@
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
-    ../../profiles/laptop.nix
+    ../../profiles/thinkpad.nix
     # modules
     ../../modules/hardware/cpu/intel/default.nix
     ../../modules/services/xserver/window-managers/i3.nix
@@ -23,6 +23,8 @@
     ../../overlays/no-nvidia.nix
     ../../overlays/intel-vaapi.nix
     ../../overlays/xorg-no-sleep.nix
+    # fix
+    ../../fix/cpu-throttling-bug.nix
     # users
     ../../users/sylv.nix
   ];
@@ -35,6 +37,7 @@
   general.boot.efi = "/dev/nvme0n1p1";
   general.boot.encryptData = true;
   general.boot.encryptHome = true;
+  general.dpi = 192;
 
   system.stateVersion = "18.09";
   nix.maxJobs = 8;
@@ -65,6 +68,13 @@ glx-swap-method = "buffer-age";
     };
   };
 
+  ### POWER MANAGEMENT #########################################################
+  services.tlp.extraConfig = ''
+    START_CHARGE_THRESH_BAT0=60
+    STOP_CHARGE_THRESH_BAT0=80
+    START_CHARGE_THRESH_BAT1=60
+    STOP_CHARGE_THRESH_BAT1=80
+  '';
   ### VIRTUALISATION ###########################################################
   virtualisation.docker.enable = true;
 }

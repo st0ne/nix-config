@@ -21,6 +21,26 @@
 
   services.xserver.windowManager.i3 = {
     enable = true;
+    # xinitrc replacement
+    extraSessionCommands = ''
+    userresources=$HOME/.Xresources
+    usermodmap=$HOME/.Xmodmap
+    sysresources=/etc/X11/xinit/Xresources
+    sysmodmap=/etc/X11/xinit/Xmodmap
+    echo $userresources >> /tmp/reeeeeeeee
+    if [ -f $sysresources ]; then
+      xrdb -merge $sysresources
+    fi
+    if [ -f $sysmodmap ]; then
+      xmodmap $sysmodmap
+    fi
+    if [ -f "$userresources" ]; then
+      xrdb -merge "$userresources"
+    fi
+    if [ -f "$usermodmap" ]; then
+      xmodmap "$usermodmap"
+    fi
+    '';
     extraPackages = with pkgs; [
       # app launcher
       dmenu

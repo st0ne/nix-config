@@ -38,5 +38,12 @@ with lib;
         '';
       };
     };
+    dpi = mkOption {
+      type = types.int;
+      default = null;
+      description = ''
+        monitor DPI
+        '';
+    };
   };
 }

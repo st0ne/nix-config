@@ -6,7 +6,7 @@
 {
   imports = 
   [
-    ../options/general.nix # custom options
+    ../config/general.nix # custom options
     
     ./base/boot.nix
     ./base/fstab.nix

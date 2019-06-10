@@ -23,22 +23,12 @@
       enable = lib.mkDefault true;
       useGlamor = lib.mkDefault true;
       displayManager = {
-        lightdm = {
+        lightdm.greeters.gtk = {
           enable = lib.mkDefault true;
-          greeters = {
-            gtk = {
-              enable = lib.mkDefault true;
-              cursorTheme = {
-                size = 48;
-              };
-            };
-          };
         };
       };
       desktopManager = {
         xterm.enable = false;
-        # enable gnome as fallback Desktop environment
-        gnome3.enable = true;
         default = "none";
       };
     };

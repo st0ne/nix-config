@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   gtkTheme = pkgs.matcha;
@@ -7,24 +7,39 @@ let
   gtkTheme_name = "Matcha-dark-azul";
   gtkIcon_name = "Arc";
   gtkCursor_name = "Numix-Cursor";
+  gtkCursor_size = 32;
 in {
   environment = {
     # Make applications find files in <prefix>/share
     pathsToLink = [ "/share" ];
     extraInit = ''
-      # GTK3: remove local user overrides (for determinisim, causes hard to find bugs)
+      # remove local user overrides (for determinisim)
       rm -f ~/.config/gtk-3.0/settings.ini
-      # QT: remove local user overrides (for determinism, causes hard to find bugs)
+      rm -f ~/.gtkrc-2.0
       rm -f ~/.config/Trolltech.conf
-      # GTK3: add theme to search path for themes
-      export XDG_DATA_DIRS="${gtkTheme}/share:$XDG_DATA_DIRS"
-      # GTK3: add /etc/xdg/gtk-3.0 to search path for settings.ini
-      # We use /etc/xdg/gtk-3.0/settings.ini to set the icon and theme name for GTK 3
+
+      # Add configuration path
       export XDG_CONFIG_DIRS="/etc/xdg:$XDG_CONFIG_DIRS"
-      # QT5: convince it to use our preferred style
+      export GTK_PATH="/etc/xdg/gtk-3.0:/etc/xdg/gtk-2.0:$GTK_PATH"
+
+      # QT5: convince qt to use gtk themes
       export QT_STYLE_OVERRIDE=gtk2
       '';
     systemPackages = [ gtkTheme gtkIcon gtkCursor pkgs.libsForQt5.qtstyleplugins ];
+    # X11
+    etc."X11/xinit/Xresources" = {
+      text = ''
+      Xcursor.theme: ${gtkCursor_name}
+      Xcursor.size: ${toString gtkCursor_size}
+      '';
+      mode = "444";
+    };
+    etc."xdg/icons/default/index.theme" = {
+      text = ''
+      [icon theme] 
+      Inherits=${gtkCursor_name}
+      '';
+    };
     # GTK3 global theme (widget and icon theme)
     etc."xdg/gtk-3.0/settings.ini" = {
       text = ''
@@ -35,12 +50,36 @@ in {
       '';
       mode = "444";
     };
+    etc."xdg/gtk-2.0/gtkrc" = {
+      text = ''
+      gtk-theme-name="${gtkTheme_name}"
+      gtk-icon-theme-name="${gtkIcon_name}"
+      gtk-cursor-theme-name="${gtkCursor_name}"
+      gtk-cursor-theme-size=${toString gtkCursor_size}
+      '';
+    };
+    # QT GTK2 style
     etc."xdg/Trolltech.conf" = {
       text = ''
       [Qt]
       style=gtk2
       '';
       mode = "444";
+    };
+  };
+  # lightdm theme
+  services.xserver.displayManager.lightdm.greeters.gtk = {
+    theme = {
+      name = gtkTheme_name;
+      package = gtkTheme;
+    };
+    iconTheme = {
+      name = gtkIcon_name;
+      package = gtkIcon;
+    };
+    cursorTheme = {
+      name = gtkCursor_name;
+      package = gtkCursor;
     };
   };
 }
