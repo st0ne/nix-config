@@ -3,68 +3,31 @@
 {
   environment.systemPackages = with pkgs; [
     ## core
-    curl
-    rsync
-    screen
-    tree
-    git
-    dhcpcd
-
-    ## analysis
+    curl rsync screen tree dhcpcd
+    ## Version control
+    git gitAndTools.hub
     # files
-    file
-    lsof
+    file lsof
     # disk
     dfc
     # binary
-    strace
-    python37Packages.binwalk-full
-    # hardware
-    lshw
-    usbutils
-    pciutils
-    dmidecode
-    lm_sensors
-
+    ltrace strace python37Packages.binwalk-full linuxPackages.perf smartmontools pmutils
+    psmisc which file binutils bc utillinuxCurses exfat dosfstools patchutils moreutils
     ## monitoring
-    htop
-    iotop
-    iftop
-    tcpdump
-
+    htop iotop iftop powertop
+    # hardware
+    lshw usbutils pciutils dmidecode lm_sensors smartmontools
     ## lookup
-    whois
-
+    whois dnsutils
     ## communication
-    telnet
-    gnupg
-
+    telnet gnupg
     ## network tools
-    nettools
-    mtr
-    siege
-    tcptraceroute
-
+    tcpdump nettools mtr siege tcptraceroute inetutils wireshark nix-prefetch-scripts
     ## compression
-    xz
-    lz4
-    zip
-    unzip
-
+    zip unzip unrar p7zip xz lz4
     ## editor
     vim
-
-    ## cli tools
-    pwgen
-    jq
-    yq
-
-    ## coding
-    go
-    gcc
-    gnumake
-    cmake
-    guile-ncurses
-
+    # Man pages
+    man man-pages posix_man_pages stdman
   ];
 }

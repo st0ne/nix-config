@@ -2,15 +2,18 @@ My personal NixOS configurations
 ================================
 
 This Repository contains my configurations for NixOS.
-My goal is to create an abstract way to define all my systems,
+My minor goal is to create an abstract way to define all my systems,
 but also to share my approaches with the NixOS community.
+
+The major goal would be an encrypted self reproducible USB backup, with an be
+easy deployed.
 
 Usage
 -----
 
 You probably shouldn't use my complete configurations directly.
-However a lot of my configurations inside `/modules` and `/overlays` should work
-as stand-alone. Feel free to use them in your own configuration. :)
+However a lot of my configurations inside `/modules`, `/overlays` and `/fix` should
+work as stand-alone. Feel free to use them in your own configuration. :)
 
 Folders
 -------
@@ -33,9 +36,19 @@ repository.
 
 Miscellaneous configurations.
 
+### `/fix`
+
+Temporary patches tu fix undesirable bugs.
+
+### `/config`
+
+definition of custom config options.
+
 ### `/users`
 
 Unix user definitions.
+
+### `/references`
 
 
 Support

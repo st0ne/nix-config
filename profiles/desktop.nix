@@ -37,12 +37,6 @@
   services = {
     # minimize log size
     journald.extraConfig = "SystemMaxUse=500M";
-    # use resolved
-    resolved = {
-      enable = true;
-      # kill it with fire Ψ (‘益’#)↝
-      dnssec = "false";
-    };
     # enable avahi protocol to mdns addresses
     avahi = {
       enable = lib.mkDefault true;

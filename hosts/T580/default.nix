@@ -12,6 +12,7 @@
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
     ../../profiles/thinkpad.nix
+    ../../profiles/personal.nix
     # modules
     ../../modules/hardware/cpu/intel/default.nix
     ../../modules/services/xserver/window-managers/i3.nix
@@ -57,6 +58,7 @@
   ### SERVICES #################################################################
   services = {
     # custom configuration
+    xserver.desktopManager.gnome3.enable = true;
     compton = {
       refreshRate = 60;
       extraOptions =

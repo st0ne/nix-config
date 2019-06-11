@@ -13,53 +13,25 @@ in
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    # general
-    lxappearance-gtk3
+    # document viewer
     zathura
-
-    # terminal
+    # terminal emulator
     unstable.alacritty
-    #alacritty
-
     # gnupg
-    gpa
-    pinentry
-
+    gpa pinentry
     # xorg tools
-    xclip
-    xorg.xev
-    xorg.xmodmap
-
-    # themes
-    matcha
-    arc-theme
-
+    xclip xorg.xev xorg.xmodmap arandr
     # browser
-    chromium
-    firefox
-    qutebrowser
-
+    chromium google-chrome firefox qutebrowser
     # communication
-    signal-desktop
-    slack
-    unstable.riot-desktop
-    thunderbird
-
+    signal-desktop slack unstable.riot-desktop thunderbird
     # libnotify
-    libnotify
-    dunst
-
+    libnotify dunst
     #video
-    gstreamer
-    gst-python
-
+    gstreamer gst-python
     # coding
     unstable.vscode
-
     #misc
-    gparted
-    pavucontrol
-    keepassxc
-    networkmanager-openvpn
+    gparted pavucontrol keepassxc networkmanager-openvpn
   ];
 }
