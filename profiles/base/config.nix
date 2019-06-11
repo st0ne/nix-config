@@ -16,7 +16,8 @@
     };
 
     rangerSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/ranger ~/.config '';
+      text = '' mkdir -p /data/user/$USER/Config/ranger
+                ln -sfn /data/user/$USER/Config/ranger ~/.config '';
       deps = [];
     };
   };

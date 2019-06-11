@@ -7,7 +7,7 @@
     ## Version control
     git gitAndTools.hub
     # files
-    file lsof
+    file lsof ranger
     # disk
     dfc
     # binary
