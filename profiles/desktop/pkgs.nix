@@ -18,7 +18,7 @@ in
     # terminal emulator
     unstable.alacritty
     # gnupg
-    gpa pinentry
+    gnupg gpa pinentry
     # xorg tools
     xclip xorg.xev xorg.xmodmap arandr
     # browser
@@ -31,7 +31,11 @@ in
     gstreamer gst-python
     # coding
     unstable.vscode
+    #NetworkManager
+    networkmanager-openvpn
+    #password manager
+    keepassxc pass
     #misc
-    gparted pavucontrol keepassxc networkmanager-openvpn
+    gparted pavucontrol
   ];
 }

@@ -20,7 +20,7 @@
     ## lookup
     whois dnsutils
     ## communication
-    telnet gnupg
+    telnet
     ## network tools
     tcpdump nettools mtr siege tcptraceroute inetutils wireshark nix-prefetch-scripts
     ## compression

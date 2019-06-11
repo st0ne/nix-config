@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   system.activationScripts = {
@@ -25,6 +25,11 @@
     };
     alacrittySetup = {
       text = '' ln -sfn /data/user/$USER/Config/alacritty ~/.config/ '';
+      deps = [];
+    };
+    gnupgSetup = {
+      text = '' mkdir -p /data/user/$USER/Auth/GnuPG/${config.general.name}
+                ln -sfn /data/user/$USER/Auth/GnuPG/${config.general.name} ~/.gnupg '';
       deps = [];
     };
     dunstSetup = {
