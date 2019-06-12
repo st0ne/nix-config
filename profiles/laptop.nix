@@ -4,7 +4,7 @@
 
 {
   imports = [
-    ./desktop/default.nix
+    ./desktop.nix
   ];
 
   # powermanagement

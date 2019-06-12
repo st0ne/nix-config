@@ -30,8 +30,8 @@
       deps = [];
     };
     gnupgSetup = {
-      text = '' mkdir -p /data/user/$USER/Auth/GnuPG/${config.general.name}
-                ln -sfn /data/user/$USER/Auth/GnuPG/${config.general.name} ~/.gnupg '';
+      text = '' mkdir -p /data/user/$USER/Auth/GnuPG/${config.host.name}
+                ln -sfn /data/user/$USER/Auth/GnuPG/${config.host.name} ~/.gnupg '';
       deps = [];
     };
     dunstSetup = {
@@ -55,8 +55,8 @@
       deps = [];
     };
     passSetup = {
-      text = '' mkdir -p /data/user/$USER/Auth/Pass/${config.general.name}
-                ln -sfn /data/user/$USER/Auth/Pass/${config.general.name} ~/.password-store '';
+      text = '' mkdir -p /data/user/$USER/Auth/Pass/${config.host.name}
+                ln -sfn /data/user/$USER/Auth/Pass/${config.host.name} ~/.password-store '';
       deps = [];
     };
     taskSetup = {

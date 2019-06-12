@@ -2,9 +2,6 @@
 
 {
   boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    cleanTmpDir = lib.mkDefault true;
-    tmpOnTmpfs = lib.mkDefault true;
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -19,9 +16,5 @@
         efiSupport = lib.mkDefault true;
       };
     };
-    kernelParams = [
-      # old ifnames (e.g. eth0, wlan0)
-      "net.ifnames=0"
-    ];
   };
 }

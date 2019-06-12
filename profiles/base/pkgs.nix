@@ -1,9 +1,8 @@
 { pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    ## core
-    curl rsync screen tree dhcpcd
     ## Version control
     git gitAndTools.hub
     # files

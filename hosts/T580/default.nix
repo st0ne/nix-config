@@ -34,11 +34,11 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
 
   ### GENERAL ##################################################################
-  general.name = "T580";
-  general.boot.efi = "/dev/nvme0n1p1";
-  general.boot.encryptData = true;
-  general.boot.encryptHome = true;
-  general.dpi = 192;
+  host.name = "T580";
+  host.boot.efi = "/dev/nvme0n1p1";
+  host.boot.encryptData = true;
+  host.boot.encryptHome = true;
+  host.dpi = 192;
 
   system.stateVersion = "18.09";
   nix.maxJobs = 8;

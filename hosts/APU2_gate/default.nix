@@ -20,9 +20,9 @@ in
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "sd_mod" "sdhci_pci" ];
 
   ### GENERAL ##################################################################
-  general.name = "gate";
+  host.name = "gate";
   boot.loader.grub.device = "/dev/sda";
-  general.boot.encryptData = false;
+  host.boot.encryptData = false;
 
   system.stateVersion = "18.09";
   nix.maxJobs = 4;

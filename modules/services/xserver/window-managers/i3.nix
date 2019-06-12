@@ -10,11 +10,11 @@
   system.userActivationScripts = {
     # link to i3 config file
     i3Setup = {
-      text = '' ln -sfn /data/user/$USER/Config/i3/${config.general.name}/ ~/.config/i3 '';
+      text = '' ln -sfn /data/user/$USER/Config/i3/${config.host.name}/ ~/.config/i3 '';
       deps = [];
     };
     polybarSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/polybar/${config.general.name} ~/.config/polybar '';
+      text = '' ln -sfn /data/user/$USER/Config/polybar/${config.host.name} ~/.config/polybar '';
       deps = [];
     };
   };

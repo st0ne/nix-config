@@ -3,7 +3,7 @@
 with lib;
 
 {
-  options.general = {
+  options.host = {
     name = mkOption {
       type = types.str;
       default = "default";
@@ -11,16 +11,26 @@ with lib;
       default device partition
       '';
     };
+    dpi = mkOption {
+      type = types.int;
+      default = null;
+      description = ''
+        monitor DPI
+        '';
+    };
     boot = {
       default = mkOption {
         type = types.bool;
         default = true;
+        description = ''
+        default partition structure
+        '';
       };
       efi = mkOption {
         type = types.str;
         default= "/dev/sda1";
         description = ''
-        main disk
+        efi partition
         '';
       };
       encryptData = mkOption {
@@ -37,13 +47,6 @@ with lib;
         encrypted home partition
         '';
       };
-    };
-    dpi = mkOption {
-      type = types.int;
-      default = null;
-      description = ''
-        monitor DPI
-        '';
     };
   };
 }

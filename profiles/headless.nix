@@ -1,11 +1,9 @@
 { config, lib, ... }:
 
-# Profile for portable Devices.
+# Profile for headless server.
 
 {
-  imports = [
-    ./base.nix
-  ];
+  imports = [];
 
   # enable serial console
   boot.kernelParams = [

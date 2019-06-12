@@ -2,6 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
+    # administation
+    nixops
     # organisation
     taskwarrior
     ## cli tools

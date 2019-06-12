@@ -3,7 +3,7 @@
 # overlay for HiDPI (High Dots Per Inch) displays
 # optimized for 3840x2160 resolution
 let
-  dpi = config.general.dpi;
+  dpi = config.host.dpi;
   cursorSize = 64;
 in {
   # choose a bigger font for the system console
