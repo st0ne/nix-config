@@ -24,7 +24,7 @@ in
     # browser
     chromium google-chrome firefox qutebrowser
     # communication
-    signal-desktop slack unstable.riot-desktop thunderbird
+    signal-desktop slack unstable.riot-desktop thunderbird gnome3.evolution
     # libnotify
     libnotify dunst
     #video

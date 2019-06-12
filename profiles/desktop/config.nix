@@ -24,7 +24,9 @@
       deps = [];
     };
     alacrittySetup = {
-      text = '' ln -sfn /data/user/$USER/Config/alacritty ~/.config/ '';
+      text = ''
+                mkdir -p /data/user/$USER/Config/alacritty
+                ln -sfn /data/user/$USER/Config/alacritty ~/.config/ '';
       deps = [];
     };
     gnupgSetup = {
@@ -33,31 +35,54 @@
       deps = [];
     };
     dunstSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/dunst ~/.config/ '';
+      text = '' mkdir -p /data/user/$USER/Config/dunst
+                ln -sfn /data/user/$USER/Config/dunst ~/.config/ '';
+      deps = [];
+    };
+    evolutionSetup = {
+      text = '' mkdir -p /data/user/$USER/Config/evolution
+                ln -sfn /data/user/$USER/Config/evolution ~/.config/ '';
       deps = [];
     };
     mimeappsSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/mimeapps.list ~/.config/ '';
+      text = '' mkdir -p /data/user/$USER/Config
+                ln -sfn /data/user/$USER/Config/mimeapps.list ~/.config/ '';
       deps = [];
     };
     mozillaSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/mozilla ~/.mozilla '';
+      text = '' mkdir -p /data/user/$USER/Config/mozilla
+                ln -sfn /data/user/$USER/Config/mozilla ~/.mozilla '';
+      deps = [];
+    };
+    passSetup = {
+      text = '' mkdir -p /data/user/$USER/Auth/Pass/${config.general.name}
+                ln -sfn /data/user/$USER/Auth/Pass/${config.general.name} ~/.password-store '';
+      deps = [];
+    };
+    taskSetup = {
+      text = '' mkdir -p /data/user/$USER/Config/task
+                ln -sfn /data/user/$USER/Config/task/taskrc ~/.taskrc
+                ln -sfn /data/user/$USER/Config/task/task ~/.task '';
       deps = [];
     };
     thunderbirdSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/thunderbird ~/.thunderbird '';
+      text = '' mkdir -p /data/user/$USER/Config/thunderbird
+                ln -sfn /data/user/$USER/Config/thunderbird ~/.thunderbird '';
       deps = [];
     };
     qutebrowserSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/qutebrowser ~/.config/ '';
+      text = '' mkdir -p /data/user/$USER/Config/qutebrowser
+                ln -sfn /data/user/$USER/Config/qutebrowser ~/.config/ '';
       deps = [];
     };
     vscodeSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/vscode ~/.vscode '';
+      text = '' mkdir -p /data/user/$USER/Config/vscode
+                ln -sfn /data/user/$USER/Config/vscode ~/.vscode '';
       deps = [];
     };
     x11Setup = {
-      text = '' ln -sfn /data/user/$USER/Config/X11/Xmodmap ~/.Xmodmap '';
+      text = '' mkdir -p /data/user/$USER/Config/X11
+                ln -sfn /data/user/$USER/Config/X11/Xmodmap ~/.Xmodmap '';
       deps = [];
     };
   };

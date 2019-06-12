@@ -35,6 +35,11 @@
 
   ### SERVICES #################################################################
   services = {
+    # gnome services
+    gnome3 = {
+      evolution-data-server.enable = true;
+      gnome-keyring.enable = true;
+    };
     # minimize log size
     journald.extraConfig = "SystemMaxUse=500M";
     # enable avahi protocol to mdns addresses
