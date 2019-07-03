@@ -1,32 +1,39 @@
-{ ... }:
+{ config, ... }:
 
 let
-  secret = import ../../secrets.nix {};
+  secret = import ../../../secrets.nix {};
 in
 
 {
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
-    ../../profiles/headless.nix
+    ../../../profile/minimal.nix
+    ../../../profiles/headless.nix
     # modules
-    ../../modules/hardware/cpu/amd/default.nix
-    # overlays
-    ../../overlays/bios-grub.nix
+    ../../../modules/hardware/cpu/amd/default.nix
     # users
-    ../../users/sylv.nix
+    ../../../users/sylv.nix
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "sd_mod" "sdhci_pci" ];
 
   ### GENERAL ##################################################################
   host.name = "gate";
-  boot.loader.grub.device = "/dev/sda";
-  host.boot.encryptData = false;
+  host.domain = secret.hq.domain;
+  host.boot.device = "/dev/sda";
 
   system.stateVersion = "18.09";
   nix.maxJobs = 4;
-  deployment.targetHost = secret.gate.domain;
+  deployment.targetHost = "${config.host.name}.${config.host.domain}";
+
+  ### Headless #################################################################
+  host.serial = {
+    enable = true;
+    device = "ttyS0";
+    baud = 115200;
+  };
+  host.ssh = true;
 
   ### NETWORK ##################################################################
 

@@ -5,10 +5,14 @@
     # administation
     nixops
     # organisation
-    taskwarrior
+    taskwarrior translate-shell
     ## cli tools
     pwgen jq yq
     ## coding
-    go gcc gnumake cmake guile-ncurses
+    gcc gnumake cmake guile-ncurses # general
+    go # Go
+    cargo rustc # Rust
+    gnum4 bison flex zlib # coreboot
+    qemu
   ];
 }

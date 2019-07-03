@@ -11,23 +11,23 @@
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
-    ../../profiles/thinkpad.nix
-    ../../profiles/personal.nix
+    ../../../profiles/thinkpad.nix
+    ../../../profiles/personal.nix
     # modules
-    ../../modules/hardware/cpu/intel/default.nix
-    ../../modules/services/xserver/window-managers/i3.nix
-    ../../modules/programs/zsh.nix
-    ../../modules/services/hardware/pcscd.nix
-    ../../modules/virtualisation/libvirtd/default.nix
+    ../../../modules/hardware/cpu/intel/default.nix
+    ../../../modules/services/xserver/window-managers/i3.nix
+    ../../../modules/programs/zsh.nix
+    ../../../modules/services/hardware/pcscd.nix
+    ../../../modules/virtualisation/libvirtd/default.nix
     # overlays
-    ../../overlays/HiDPI.nix
-    ../../overlays/no-nvidia.nix
-    ../../overlays/intel-vaapi.nix
-    ../../overlays/xorg-no-sleep.nix
+    ../../../overlays/HiDPI.nix
+    ../../../overlays/no-nvidia.nix
+    ../../../overlays/intel-vaapi.nix
+    ../../../overlays/xorg-no-sleep.nix
     # fix
-    ../../fix/cpu-throttling-bug.nix
+    ../../../fix/cpu-throttling-bug.nix
     # users
-    ../../users/sylv.nix
+    ../../../users/sylv.nix
   ];
 
   ### INIT #####################################################################
@@ -35,7 +35,8 @@
 
   ### GENERAL ##################################################################
   host.name = "T580";
-  host.boot.efi = "/dev/nvme0n1p1";
+  host.boot.efi = true;
+  host.boot.device = "/dev/nvme0n1p1";
   host.boot.encryptData = true;
   host.boot.encryptHome = true;
   host.dpi = 192;

@@ -3,20 +3,31 @@
 with lib;
 
 {
+  imports = [
+    ./headless.nix
+  ];
+
   options.host = {
     name = mkOption {
       type = types.str;
-      default = "default";
+      default = "defaulthost";
       description = ''
-      default device partition
+      name of the host
+      '';
+    };
+    domain = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = ''
+      domain name
       '';
     };
     dpi = mkOption {
       type = types.int;
       default = null;
       description = ''
-        monitor DPI
-        '';
+      monitor DPI
+      '';
     };
     boot = {
       default = mkOption {
@@ -27,10 +38,18 @@ with lib;
         '';
       };
       efi = mkOption {
-        type = types.str;
-        default= "/dev/sda1";
+        type = types.bool;
+        default = false;
         description = ''
-        efi partition
+        enable efi boot
+        '';
+      };
+      device = mkOption {
+        type = types.str;
+        default= null;
+        description = ''
+        legacy: grub device
+        efi: efi partition
         '';
       };
       encryptData = mkOption {

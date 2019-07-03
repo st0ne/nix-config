@@ -3,7 +3,7 @@ let
 in
 
 {
-  network.description = "${secret.cup.domain} netcup server";
+  network.description = "${secret.sylv.domain} netcup server";
 
-  cup = import ../hosts/VM_cup/default.nix;
+  cup = import ../hosts/Server/cup;
 }

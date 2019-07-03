@@ -13,8 +13,8 @@ in
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    # document viewer
-    zathura
+    # document/Image viewer
+    zathura feh
     # terminal emulator
     unstable.alacritty
     # gnupg
@@ -28,7 +28,7 @@ in
     # libnotify
     libnotify dunst
     #video
-    gstreamer gst-python
+    mpv vlc ffmpeg gstreamer gst-python
     # coding
     unstable.vscode
     #NetworkManager
