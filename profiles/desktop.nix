@@ -41,6 +41,7 @@
     avahi = {
       enable = lib.mkDefault true;
       nssmdns = true;
+      #ipv6 = true;
     };
     # secure firmware updates
     fwupd.enable = lib.mkDefault true;

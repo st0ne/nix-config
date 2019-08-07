@@ -10,7 +10,11 @@
       interactiveShellInit =
 ''
     source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
-
+    ## alias
+    alias ssh='TERM=xterm ssh'
+    ## fix
+    # remove funktion name conflict with translate-shell
+    unfunction trans
 '';
     promptInit = ""; # otherwise it'll override the grml prompt
       autosuggestions = {

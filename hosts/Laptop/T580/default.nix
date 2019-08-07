@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 ## main personal Laptop
 # Lenovo Thinkpad T580
@@ -13,6 +13,7 @@
     # profile
     ../../../profiles/thinkpad.nix
     ../../../profiles/personal.nix
+    ../../../profiles/study.nix
     # modules
     ../../../modules/hardware/cpu/intel/default.nix
     ../../../modules/services/xserver/window-managers/i3.nix
@@ -32,6 +33,7 @@
 
   ### INIT #####################################################################
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest_hardened;
 
   ### GENERAL ##################################################################
   host.name = "T580";
@@ -62,12 +64,7 @@
     xserver.desktopManager.gnome3.enable = true;
     compton = {
       refreshRate = 60;
-      extraOptions =
-''
-glx-no-stencil = true;
-glx-no-rebind-pixmap = true;
-glx-swap-method = "buffer-age";
-'';
+      vSync = true;
     };
   };
 
