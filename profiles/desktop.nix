@@ -6,7 +6,11 @@
   {
   imports = [
     ./base.nix # parent
-    ./desktop
+
+    ./modules/config.nix
+    ./modules/pkgs.nix
+    ./modules/theme.nix
+    ./modules/x11.nix
   ];
 
   ### HARDWARE #################################################################
