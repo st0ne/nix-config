@@ -11,15 +11,16 @@
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
-    ../../../profiles/thinkpad.nix
+    ../../../profiles/laptop.nix
     ../../../profiles/personal.nix
     ../../../profiles/study.nix
     # modules
-    ../../../modules/hardware/cpu/intel/default.nix
+    ../../../modules/hardware/cpu/intel
+    ../../../modules/hardware/thinkpad
     ../../../modules/services/xserver/window-managers/i3.nix
     ../../../modules/programs/zsh.nix
     ../../../modules/services/hardware/pcscd.nix
-    ../../../modules/virtualisation/libvirtd/default.nix
+    ../../../modules/virtualisation/libvirtd
     # overlays
     ../../../overlays/HiDPI.nix
     ../../../overlays/no-nvidia.nix
