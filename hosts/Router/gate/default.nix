@@ -8,7 +8,7 @@ in
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
-    ../../../profile/minimal.nix
+    ../../../profile/core.nix
     ../../../profiles/headless.nix
     # modules
     ../../../modules/hardware/cpu/amd/default.nix
