@@ -9,7 +9,7 @@ in
     [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
     #./webservices.nix
     # profile
-    ../../../profiles/core.nix
+    ../../../profiles/default.nix
     ../../../profiles/headless.nix
     # users
     ../../../users/sylv.nix
