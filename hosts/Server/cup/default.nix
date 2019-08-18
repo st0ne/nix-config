@@ -10,7 +10,8 @@ in
     #./webservices.nix
     # profile
     ../../../profiles/default.nix
-    ../../../profiles/headless.nix
+    ../../../profiles/pkgs/minimal.nix
+    ../../../profiles/modules/headless.nix
     # users
     ../../../users/sylv.nix
     # services
@@ -38,5 +39,4 @@ in
     baud = 115200;
   };
   host.ssh = true;
-
 }

@@ -5,10 +5,10 @@
 
   {
   imports = [
-    ./base.nix # parent
+    ./default.nix # parent
+    ./pkgs/desktop.nix
 
     ./modules/config.nix
-    ./modules/pkgs.nix
     ./modules/theme.nix
     ./modules/x11.nix
   ];

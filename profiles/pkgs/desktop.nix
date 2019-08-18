@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  imports =
+  [
+    ./minimal.nix # parent
+  ];
   environment.systemPackages = with pkgs; [
     # document/Image viewer
     zathura feh

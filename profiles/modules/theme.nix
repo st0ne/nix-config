@@ -1,5 +1,7 @@
 { config, lib, pkgs, ... }:
 
+with lib;
+
 let
   gtkTheme = pkgs.matcha;
   gtkIcon = pkgs.arc-icon-theme;
@@ -8,7 +10,19 @@ let
   gtkIcon_name = "Arc";
   gtkCursor_name = "Numix-Cursor";
   gtkCursor_size = 32;
-in {
+
+in
+{
+  options.host = {
+    dpi = mkOption {
+      type = types.int;
+      default = null;
+      description = ''
+      monitor DPI
+      '';
+    };
+  };
+  config = {
   environment = {
     # Make applications find files in <prefix>/share
     pathsToLink = [ "/share" ];
@@ -81,5 +95,6 @@ in {
       name = gtkCursor_name;
       package = gtkCursor;
     };
+  };
   };
 }

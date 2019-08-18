@@ -1,5 +1,7 @@
 { config, ... }:
 
+# persistent configuration
+
 {
   system.activationScripts = {
     init = {
@@ -44,6 +46,11 @@
                 ln -sfn /data/user/$USER/Config/evolution ~/.config/ '';
       deps = [];
     };
+    htopSetup = {
+      text = '' mkdir -p /data/user/$USER/Config/htop/${config.host.name}
+                ln -sfn /data/user/$USER/Config/htop/${config.host.name} ~/.config/htop '';
+      deps = [];
+    };
     mimeappsSetup = {
       text = '' mkdir -p /data/user/$USER/Config
                 ln -sfn /data/user/$USER/Config/mimeapps.list ~/.config/ '';
@@ -57,6 +64,11 @@
     passSetup = {
       text = '' mkdir -p /data/user/$USER/Auth/Pass/${config.host.name}
                 ln -sfn /data/user/$USER/Auth/Pass/${config.host.name} ~/.password-store '';
+      deps = [];
+    };
+    rangerSetup = {
+      text = '' mkdir -p /data/user/$USER/Config/ranger
+                ln -sfn /data/user/$USER/Config/ranger ~/.config '';
       deps = [];
     };
     taskSetup = {

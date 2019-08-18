@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  boot.extraModulePackages = [ config.boot.kernelPackages.wireguard ];
   environment.systemPackages = with pkgs; [
     # administation
     nixops
@@ -18,6 +17,5 @@
     kicad-unstable
     nextcloud-client
     speedtest-cli
-    wireguard wireguard-tools
   ];
 }

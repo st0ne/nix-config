@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
-# It includes essential configurations and pkgs.
+# It includes essential pkgs.
 
 {
   imports = 
   [
-    ./default.nix # parent
+    ./core.nix # parent
   ];
 
   ### PKGS #####################################################################
@@ -35,21 +35,5 @@
     # Man pages
     man man-pages posix_man_pages stdman
   ];
-
-  ### CONFIG ###################################################################
-  system.activationScripts = {
-  };
-  system.userActivationScripts = {
-    htopSetup = {
-      text = '' mkdir -p /data/user/$USER/Config/htop/${config.host.name}
-                ln -sfn /data/user/$USER/Config/htop/${config.host.name} ~/.config/htop '';
-      deps = [];
-    };
-    rangerSetup = {
-      text = '' mkdir -p /data/user/$USER/Config/ranger
-                ln -sfn /data/user/$USER/Config/ranger ~/.config '';
-      deps = [];
-    };
-  };
 }
   
