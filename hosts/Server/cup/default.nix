@@ -32,6 +32,12 @@ in
   deployment.targetHost = "${config.host.name}.${config.host.domain}";
   networking = secret.cup.networking;
 
+  ### UPDATE ###################################################################
+  system.autoUpgrade = {
+    enable = true;
+    channel = "https://nixos.org/channels/nixos-unstable";
+  };
+
   ### Headless #################################################################
   host.serial = {
     enable = true;
