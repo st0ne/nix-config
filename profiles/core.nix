@@ -94,4 +94,7 @@ in {
     ## core
     curl rsync screen tree dhcpcd
   ];
+
+  # less paranoia
+  networking.firewall.allowPing = true;
 }

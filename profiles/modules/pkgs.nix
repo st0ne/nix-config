@@ -1,16 +1,7 @@
 { pkgs, ... }:
 
-
-let
-# allow unstable unfree pkgs
-unstable = import <nixos-unstable>
 {
-  config.allowUnfree = true;
-};
-in
-{
-  # allow unfree pkgs (stable)
-  nixpkgs.config.allowUnfree = true;
+  imports = [ ./unstable.nix ];
 
   environment.systemPackages = with pkgs; [
     # document/Image viewer
@@ -28,7 +19,7 @@ in
     # libnotify
     libnotify dunst
     #video
-    mpv vlc ffmpeg gstreamer gst-python
+    mpv ffmpeg gstreamer gst-python
     # coding
     unstable.vscode
     #NetworkManager
