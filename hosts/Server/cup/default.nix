@@ -36,6 +36,7 @@ in
   system.autoUpgrade = {
     enable = true;
     channel = "https://nixos.org/channels/nixos-unstable";
+    dates = "Sun *-*-* 04:20:00";
   };
 
   ### Headless #################################################################
@@ -45,4 +46,12 @@ in
     baud = 115200;
   };
   host.ssh = true;
+
+  ### IRC ######################################################################
+  users.users.sylv.extraGroups = [ "weechat" ];
+  services.weechat.enable = true;
+  programs.screen.screenrc = ''
+    multiuser on
+    acladd sylv
+  '';
 }
