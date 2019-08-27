@@ -80,4 +80,8 @@
   '';
   ### VIRTUALISATION ###########################################################
   virtualisation.docker.enable = true;
+
+  ### MISC #####################################################################
+  # Yubikey
+  services.udev.packages = [ pkgs.yubikey-personalization ];
 }
