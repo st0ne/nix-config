@@ -32,11 +32,18 @@ in
   deployment.targetHost = "${config.host.name}.${config.host.domain}";
   networking = secret.cup.networking;
 
-  ### UPDATE ###################################################################
+  ### AUTOMATION ###############################################################
+  # auto update
   system.autoUpgrade = {
     enable = true;
     channel = "https://nixos.org/channels/nixos-unstable";
     dates = "Sun *-*-* 04:20:00";
+  };
+  #auto garbage collect
+  nix.gc = {
+    automatic = true;
+    dates = "Sun *-*-* 05:00:00";
+    options = "--delete-older-than 1m";
   };
 
   ### Headless #################################################################
@@ -46,6 +53,8 @@ in
     baud = 115200;
   };
   host.ssh = true;
+
+  programs.mosh.enable= true;
 
   ### IRC ######################################################################
   users.users.sylv.extraGroups = [ "weechat" ];
