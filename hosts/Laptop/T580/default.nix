@@ -32,11 +32,12 @@
     ../../../fix/cpu-throttling-bug.nix
     # users
     ../../../users/sylv.nix
+    # shells
+    ../../../shells
   ];
 
   ### INIT #####################################################################
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest_hardened;
 
   ### GENERAL ##################################################################
   host.name = "T580";
