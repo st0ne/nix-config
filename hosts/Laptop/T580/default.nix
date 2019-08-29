@@ -38,6 +38,7 @@
 
   ### INIT #####################################################################
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+  hardware.cpu.intel.updateMicrocode = false;
 
   ### GENERAL ##################################################################
   host.name = "T580";
@@ -85,4 +86,6 @@
   ### MISC #####################################################################
   # Yubikey
   services.udev.packages = [ pkgs.yubikey-personalization ];
+  # mutable timezone
+  time.timeZone = null;
 }
