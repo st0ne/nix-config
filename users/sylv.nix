@@ -4,6 +4,10 @@ let
   secret = import ../secrets.nix {};
 in
 {
+  imports = [
+    # use zsh with custon plugins
+    ../modules/programs/zsh.nix
+  ];
   users.users.sylv = {
     isNormalUser = true;
     home = "/home/sylv/";
@@ -15,8 +19,4 @@ in
     initialHashedPassword = secret.sylv.initialHashedPassword;
     openssh.authorizedKeys.keys = secret.sylv.authorizedKeys.keys;
   };
-  environment.systemPackages = with pkgs; [
-    ## zsh
-    zsh
-  ];
 }

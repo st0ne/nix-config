@@ -20,7 +20,6 @@
     ../../../modules/hardware/thinkpad
     ../../../modules/services/networking/wireguard.nix
     ../../../modules/services/xserver/window-managers/i3.nix
-    ../../../modules/programs/zsh.nix
     ../../../modules/services/hardware/pcscd.nix
     ../../../modules/virtualisation/libvirtd
     # overlays
