@@ -85,6 +85,4 @@
   ### MISC #####################################################################
   # Yubikey
   services.udev.packages = [ pkgs.yubikey-personalization ];
-  # mutable timezone
-  time.timeZone = null;
 }

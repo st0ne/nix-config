@@ -13,4 +13,7 @@
     powertop.enable = lib.mkDefault true;
   };
   services.tlp.enable = lib.mkDefault true;
+
+  # mutable timezone
+  time.timeZone = null;
 }
