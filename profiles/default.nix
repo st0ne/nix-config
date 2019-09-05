@@ -3,7 +3,10 @@
 # default definition of any host
 
 with lib;
-
+let
+  nixpkgsPath = "/data/nixpkgs";
+  nixos-configPath = "/data/nixos-config";
+in
 {
   options.host = {
     name = mkOption {
@@ -69,6 +72,12 @@ with lib;
   ];
 
   config = {
+  # use my own Repo as source (no channels)
+  nix.nixPath = [
+    "nixpkgs=${nixpkgsPath}"
+    "nixos-config=${nixos-configPath}/configuration.nix"
+  ];
+
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     cleanTmpDir = lib.mkDefault true;
