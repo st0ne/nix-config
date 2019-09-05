@@ -58,7 +58,7 @@ in
     };
     systemPackages = with pkgs; [
     powerline-fonts
-    nerdfonts
+    #nerdfonts # slow download
     grml-zsh-config
     antibody
     ];
