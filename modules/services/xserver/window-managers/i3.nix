@@ -27,7 +27,6 @@
     usermodmap=$HOME/.Xmodmap
     sysresources=/etc/X11/xinit/Xresources
     sysmodmap=/etc/X11/xinit/Xmodmap
-    echo $userresources >> /tmp/reeeeeeeee
     if [ -f $sysresources ]; then
       xrdb -merge $sysresources
     fi
