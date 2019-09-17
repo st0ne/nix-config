@@ -5,7 +5,6 @@
 
 {
   environment.pathsToLink = [ "/libexec" ];
-  environment.systemPackages = [ (pkgs.polybar.override { i3Support = true; }) ];
 
   system.userActivationScripts = {
     # link to i3 config file
@@ -51,11 +50,6 @@
       alsaLib
       libpulseaudio
       mpd_clientlib
-
-      # polybar
-      polybar
-      cairo
-      siji
 
       # misc bars
       i3lock

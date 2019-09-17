@@ -7,6 +7,7 @@ in
   imports = [
     # use zsh with custon plugins
     ../modules/programs/zsh.nix
+    ../modules/programs/vim.nix
   ];
   users.users.sylv = {
     isNormalUser = true;
