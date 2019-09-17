@@ -7,61 +7,61 @@ let
   nixpkgsPath = "/data/nixpkgs";
   nixos-configPath = "/data/nixos-config";
 in
-{
-  options.host = {
-    name = mkOption {
-      type = types.str;
-      default = "defaulthost";
-      description = ''
-      name of the host
-      '';
-    };
-    domain = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      description = ''
-      domain name
-      '';
-    };
-    boot = {
-      default = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-        default partition structure
-        '';
-      };
-      efi = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-        enable efi boot
-        '';
-      };
-      device = mkOption {
+  {
+    options.host = {
+      name = mkOption {
         type = types.str;
-        default= null;
+        default = "defaulthost";
         description = ''
-        legacy: grub device
-        efi: efi partition
+          name of the host
         '';
       };
-      encryptData = mkOption {
-        type = types.bool;
-        default = false;
+      domain = mkOption {
+        type = types.nullOr types.str;
+        default = null;
         description = ''
-        encrypted data partition
+          domain name
         '';
       };
-      encryptHome = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-        encrypted home partition
-        '';
+      boot = {
+        default = mkOption {
+          type = types.bool;
+          default = true;
+          description = ''
+            default partition structure
+          '';
+        };
+        efi = mkOption {
+          type = types.bool;
+          default = false;
+          description = ''
+            enable efi boot
+          '';
+        };
+        device = mkOption {
+          type = types.str;
+          default= null;
+          description = ''
+            legacy: grub device
+            efi: efi partition
+          '';
+        };
+        encryptData = mkOption {
+          type = types.bool;
+          default = false;
+          description = ''
+            encrypted data partition
+          '';
+        };
+        encryptHome = mkOption {
+          type = types.bool;
+          default = false;
+          description = ''
+            encrypted home partition
+          '';
+        };
       };
     };
-  };
 
   # import custom config
   imports = [
@@ -102,7 +102,7 @@ in
     };
   };
   fileSystems = lib.mkIf config.host.boot.default {
-     "/boot/efi" = lib.mkIf config.host.boot.efi {
+    "/boot/efi" = lib.mkIf config.host.boot.efi {
       device = config.host.boot.device;
       fsType = "vfat";
     };
@@ -127,5 +127,13 @@ in
 
   # allow ping
   networking.firewall.allowPing = true;
+
+  # add tmux
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+    extraTmuxConf = ''
+    '';
   };
+};
 }
