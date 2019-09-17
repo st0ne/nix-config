@@ -7,14 +7,20 @@
   fonts = {
     enableFontDir = true;
     enableGhostscriptFonts = true;
+    enableDefaultFonts = true;
     fonts = with pkgs; [
+    hack-font
     dejavu_fonts
     fira-code
     font-awesome-ttf
     ];
     fontconfig = {
       enable = lib.mkDefault true;
-      defaultFonts.monospace = [ "DejaVu Sans Mono" ];
+      defaultFonts = {
+        monospace = [ "Hack" ];
+        sansSerif = [ "Hack" ];
+        serif     = [ "Hack" ];
+      };
     };
   };
   services = {
