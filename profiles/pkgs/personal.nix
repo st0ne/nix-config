@@ -17,5 +17,6 @@
     kicad-unstable
     nextcloud-client
     speedtest-cli
+    wirelesstools
   ];
 }
