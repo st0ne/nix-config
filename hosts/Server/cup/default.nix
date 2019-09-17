@@ -35,13 +35,13 @@ in
   ### AUTOMATION ###############################################################
   # auto update
   system.autoUpgrade = {
-    enable = true;
+    enable = false;
     channel = "https://nixos.org/channels/nixos-unstable";
     dates = "Sun *-*-* 04:20:00";
   };
   #auto garbage collect
   nix.gc = {
-    automatic = true;
+    automatic = false;
     dates = "Sun *-*-* 05:00:00";
     options = "--delete-older-than 1m";
   };

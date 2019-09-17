@@ -37,7 +37,6 @@
 
   ### INIT #####################################################################
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
-  hardware.cpu.intel.updateMicrocode = false;
 
   ### GENERAL ##################################################################
   host.name = "T580";
