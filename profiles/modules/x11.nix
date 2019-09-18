@@ -28,6 +28,8 @@
       # enable xserver by default
       enable = lib.mkDefault true;
       useGlamor = lib.mkDefault true;
+      autoRepeatDelay = lib.mkDefault 200;
+      autoRepeatInterval = lib.mkDefault 25;
       displayManager = {
         lightdm.greeters.gtk = {
           enable = lib.mkDefault true;
