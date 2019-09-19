@@ -69,6 +69,9 @@ in
 
     # optional TODO: make lvm optional
     ./fstab/lvm.nix
+
+    # modules
+    ../modules/programs/tmux.nix
   ];
 
   config = {
@@ -127,13 +130,5 @@ in
 
   # allow ping
   networking.firewall.allowPing = true;
-
-  # add tmux
-  programs.tmux = {
-    enable = true;
-    clock24 = true;
-    extraTmuxConf = ''
-    '';
-  };
 };
 }
