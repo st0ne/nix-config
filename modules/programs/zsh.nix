@@ -71,6 +71,9 @@ in
         ${initPowerline}
         ${initAntibody}
       '';
+      shellAliases = {
+        ssh = "TERM=xterm ssh";
+      };
     };
 
     environment = {
