@@ -52,17 +52,5 @@
     redshift = {
       enable = lib.mkDefault true;
     };
-    compton  = {
-      enable = lib.mkDefault true;
-      backend = lib.mkDefault "glx";
-    };
-  };
-  location = {
-    # hard code geolocation for redshift
-    # welcome to Bochum :)
-    latitude = 51.48;
-    longitude = 7.22;
-  # standalone compositor
-  # a must have if your use the modesettig driver for xorg
   };
 }

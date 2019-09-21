@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 # Profile for portable Devices.
 
@@ -16,4 +16,7 @@
 
   # mutable timezone
   time.timeZone = null;
+
+  # use geoclue
+  location.provider = "geoclue2";
 }

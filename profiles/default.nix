@@ -130,5 +130,12 @@ in
 
   # allow ping
   networking.firewall.allowPing = true;
+
+  location = {
+    # hard code geolocation for redshift
+    # welcome to Bochum :)
+    latitude = lib.mkDefault 51.48;
+    longitude = lib.mkDefault 7.22;
+  };
 };
 }
