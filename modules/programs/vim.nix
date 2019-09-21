@@ -30,7 +30,7 @@ let
   '';
   setupColor = ''
     " Color: {{{
-    colorscheme koehler
+    " colorscheme koehler
     syntax enable
     set t_Co=256
     " }}}
@@ -62,10 +62,12 @@ let
     let php_folding=1
     let ruby_fold=1
     let xml_syntax_folding=1
+    " highlight TODO,XXX,FIXME
+    hi Todo ctermbg=lightgreen cterm=italic ctermfg=black
     " }}}
   '';
   setupSpacing = ''
-    " Spacing {{{
+    " Space {{{
     set shiftwidth=4                      " indentation level spaces
     set tabstop=8                         " number of visual spaces for tabs in read files
     set listchars=tab:>-,nbsp:_,trail:•   " set display mode of unwanted characters
@@ -79,6 +81,18 @@ let
     set ic                " set ignore case
     " }}}
   '';
+  setupPlugins = ''
+    " Plugins: {{{
+    " Ale:
+    let g:ale_sign_column_always = 1
+    " Airline:
+    let g:airline_powerline_fonts=1
+    let g:airline#extensions#tabline#enabled = 1
+    set laststatus=2 " Always display the statusline in all windows
+    set showtabline=2 " Always display the tabline, even if there is only one tab
+    set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+    " }}}
+    '';
 
     in
     {
@@ -96,17 +110,19 @@ let
             ${setupSyntax}
             ${setupSpacing}
             ${setupSearch}
+            ${setupPlugins}
           '';
           vimrcConfig.vam.knownPlugins = pkgs.vimPlugins; # optional
           vimrcConfig.vam.pluginDictionaries = [
             # vim basics
-            { names = ["vim-tmux-navigator" "vim-autoformat" ]; }
+            { names = ["airline" "vim-tmux-navigator" "vim-autoformat" ]; }
             # coding
             { names = ["ale" "vim-go" ]; }
 
         ];
       }
       )
+      python37Packages.powerline
     ];
   }
 #  vim:foldmethod=marker:foldlevel=0
