@@ -13,7 +13,7 @@ in
     ../../../profiles/pkgs/minimal.nix
     ../../../profiles/modules/headless.nix
     # users
-    ../../../users/sylv.nix
+    ../../../users/sylv
     # services
     ./web-services/nginx.nix
     ./web-services/nextcloud.nix

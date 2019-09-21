@@ -13,7 +13,7 @@ in
     # modules
     ../../../modules/hardware/cpu/amd/default.nix
     # users
-    ../../../users/sylv.nix
+    ../../../users/sylv
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "sd_mod" "sdhci_pci" ];

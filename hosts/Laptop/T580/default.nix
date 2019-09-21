@@ -30,7 +30,7 @@
     # fix
     ../../../fix/cpu-throttling-bug.nix
     # users
-    ../../../users/sylv.nix
+    ../../../users/sylv/full.nix
     # shells
     ../../../shells
   ];
