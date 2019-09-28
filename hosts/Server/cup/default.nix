@@ -27,7 +27,7 @@ in
   host.domain = secret.sylv.domain;
   host.boot.device = "/dev/vda";
 
-  system.stateVersion = "18.09";
+  system.stateVersion = "19.09";
   nix.maxJobs = 2;
   deployment.targetHost = "${config.host.name}.${config.host.domain}";
   networking = secret.cup.networking;

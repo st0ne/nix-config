@@ -76,10 +76,10 @@ in
 
   config = {
   # use my own Repo as source (no channels)
-  nix.nixPath = [
-    "nixpkgs=${nixpkgsPath}"
-    "nixos-config=${nixos-configPath}/configuration.nix"
-  ];
+  #nix.nixPath = [
+  #  "nixpkgs=${nixpkgsPath}"
+  #  "nixos-config=${nixos-configPath}/configuration.nix"
+  #];
 
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;

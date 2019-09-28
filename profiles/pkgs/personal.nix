@@ -14,7 +14,7 @@
     cargo rustc # Rust
     gnum4 bison flex zlib # coreboot
     qemu
-    kicad-unstable
+    kicad
     nextcloud-client
     speedtest-cli
     wirelesstools
