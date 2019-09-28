@@ -2,10 +2,11 @@
 
 let
   secret = import ../../../../secrets.nix {};
-  hostname = "${secret.nextcloud.hostname}.${secret.sylv.domain}";
+  hostname = "${secret.nextcloud.hostname}.${secret.home.domain}";
 in {
   services.nextcloud = {
     enable = true;
+    https = true;
     hostName = hostname;
     nginx.enable = true;
     home = "/data/www/${hostname}/nextcloud";
