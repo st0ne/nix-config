@@ -61,6 +61,12 @@ let
       fi
     fi
   '';
+  initPath = ''
+    # add Golang bin if path exists
+    if [ -d $HOME/go ];then
+      PATH=$PATH:$HOME/go/bin
+    fi
+  '';
   # }}}
 in
   {
@@ -70,6 +76,7 @@ in
         ${initGrml}
         ${initPowerline}
         ${initAntibody}
+        ${initPath}
       '';
       shellAliases = {
         ssh = "TERM=xterm ssh";
