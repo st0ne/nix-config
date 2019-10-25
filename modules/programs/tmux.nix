@@ -13,34 +13,49 @@ let
       source '${pkgs.python37Packages.powerline}/share/tmux/powerline.conf'
     # }}}
   '';
+  # powerline config {{{
+    configPowerline = ''
+      {
+      "segments": {
+        "right": [
+          {
+            "function": "powerline.segments.common.time.date",
+            "name": "time",
+            "args": {
+              "format": "%H:%M",
+              "istime": true
+            }
+          },
+          {
+            "function": "powerline.segments.common.net.hostname",
+            "name": "hostname",
+            "args": {
+              "only_if_ssh": true
+            }
+          },
+          {
+            "function": "powerline.segments.tmux.attached_clients"
+          }
+        ]
+      }
+      }
+    '';
+  # }}}
+  setupRemote = ''
+    # Remote {{{
+    # Session is considered to be remote when we ssh into host
+    if-shell 'test -n "$SSH_CLIENT"' \
+        'set-option -g status-position top'
+    # }}}
+  '';
   setupBindings = ''
     # Bindings: {{{
-      ## load testconfig
-      bind r source-file /tmp/tmux.conf \; display "Config loaded!"
-
+      # send prefix to remote session with Ctrl-B
+      bind -n C-b send-prefix
       ## window
-      # custom split key (like i3)
+      # pane split key in current path
       bind v split-window -v -c '#{pane_current_path}'
       bind b split-window -h -c '#{pane_current_path}'
-      # create new window in current path
-      bind c new-window -c '#{pane_current_path}'
-      # extend vim-like window bindings
-      bind H next-window
-      bind J swap-window -t -1
-      bind K swap-window -t +1
-      bind L previous-window
-
-      # pane
-      # vim-like pane navigation
-      #bind -n C-h select-pane -L
-      #bind -n C-j select-pane -D
-      #bind -n C-k select-pane -U
-      #bind -n C-l select-pane -R
-      # vim-like window movement/setup
-      #bind -n C-H next-window
-      #bind -n C-J swap-window -t -1
-      #bind -n C-K swap-window -t +1
-      #bind -n C-L previous-window
     # }}}
   '';
 in
@@ -57,12 +72,18 @@ in
       extraTmuxConf = ''
         ${setupBasic}
         ${setupPowerline}
+        ${setupRemote}
         ${setupBindings}
       '';
     };
 
-    environment.systemPackages = with pkgs; [
-      python37Packages.powerline
-    ];
+    environment = {
+      etc."xdg/powerline/themes/tmux/default.json" = {
+        text = configPowerline;
+      };
+      systemPackages = with pkgs; [
+        python37Packages.powerline
+      ];
+    };
   }
 #  vim:foldmethod=marker:foldlevel=0
