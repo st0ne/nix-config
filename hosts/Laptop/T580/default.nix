@@ -7,6 +7,10 @@
 # dGPU: NVIDIA GeForce MX150 (inactive)
 # Display: 15.6" UHD (3840 x 2160)
 
+let
+  secret = import ../../../secrets.nix {};
+in
+
 {
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
@@ -84,4 +88,16 @@
   ### MISC #####################################################################
   # Yubikey
   services.udev.packages = [ pkgs.yubikey-personalization ];
+
+  # hide mouse
+  services.unclutter.enable = true;
+
+  # TODO: fix firewall restriction on mullvad vpn  (wireguard)
+  networking.firewall.enable = false;
+
+  # some aliases
+  environment.shellAliases = {
+    tcup = "mosh cup.${secret.sylv.domain} -- tmux new-session -A -s cup";
+    irc = "mosh cup.${secret.sylv.domain} -- screen -D -R weechat -x weechat/weechat-screen";
+  };
 }
