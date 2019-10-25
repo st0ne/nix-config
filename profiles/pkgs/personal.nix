@@ -9,7 +9,7 @@
     ## cli tools
     pwgen jq yq
     ## coding
-    gcc gnumake cmake guile-ncurses # general
+    gcc gnumake cmake ncurses # general
     go # Go
     cargo rustc # Rust
     gnum4 bison flex zlib # coreboot

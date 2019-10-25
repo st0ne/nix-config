@@ -38,6 +38,7 @@
     gnome3 = {
       evolution-data-server.enable = true;
       gnome-keyring.enable = true;
+      gnome-online-accounts.enable = true;
     };
     # minimize log size
     journald.extraConfig = "SystemMaxUse=500M";

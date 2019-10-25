@@ -33,7 +33,6 @@ in
       rm -f ~/.config/Trolltech.conf
 
       # Add configuration path
-      export XDG_CONFIG_DIRS="/etc/xdg:$XDG_CONFIG_DIRS"
       export GTK_PATH="/etc/xdg/gtk-3.0:/etc/xdg/gtk-2.0:$GTK_PATH"
 
       # QT5: convince qt to use gtk themes
@@ -50,7 +49,7 @@ in
     };
     etc."xdg/icons/default/index.theme" = {
       text = ''
-      [icon theme] 
+      [icon theme]
       Inherits=${gtkCursor_name}
       '';
     };
