@@ -6,6 +6,8 @@ with lib;
 let
   nixpkgsPath = "/data/nixpkgs";
   nixos-configPath = "/data/nixos-config";
+  us = "en_US.UTF-8";
+  de = "de_DE.UTF-8";
 in
   {
     options.host = {
@@ -111,11 +113,24 @@ in
     };
   };
 
-  # console
+  # locale & console
   i18n = {
     consoleFont = lib.mkDefault "Lat2-Terminus16";
     consoleKeyMap = lib.mkDefault "us";
-    defaultLocale = lib.mkDefault "en_US.UTF-8";
+    defaultLocale = lib.mkDefault us;
+    extraLocaleSettings = {
+      LC_ADDRESS = lib.mkDefault de;
+      LC_COLLATE = lib.mkDefault de;
+      LC_IDENTIFICATION = lib.mkDefault de;
+      LC_MONETARY = lib.mkDefault de;
+      LC_MESSAGES = lib.mkDefault us;
+      LC_MEASUREMENT = lib.mkDefault de;
+      LC_NAME = lib.mkDefault de;
+      LC_NUMERIC = lib.mkDefault de;
+      LC_PAPER = lib.mkDefault de;
+      LC_TELEPHONE = lib.mkDefault de;
+      LC_TIME = lib.mkDefault de;
+    };
   };
 
   # timezone
