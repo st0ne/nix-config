@@ -2,7 +2,7 @@
 
 let
   secret = import ../../../../secrets.nix {};
-  hostname = "${secret.nextcloud.hostname}.${secret.home.domain}";
+  hostname = secret.nextcloud.hostname;
 in {
   services.nextcloud = {
     enable = true;
