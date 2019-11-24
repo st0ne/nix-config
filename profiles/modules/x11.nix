@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../modules/services/xserver/hardware/libinput.nix
+    ../../modules/xserver/libinput.nix
   ];
   fonts = {
     enableFontDir = true;
@@ -18,8 +18,8 @@
       enable = lib.mkDefault true;
       defaultFonts = {
         monospace = [ "Hack" ];
-        sansSerif = [ "Hack" ];
-        serif     = [ "Hack" ];
+        sansSerif = [ "DejaVu Sans" ];
+        serif     = [ "DejaVu" ];
       };
     };
   };

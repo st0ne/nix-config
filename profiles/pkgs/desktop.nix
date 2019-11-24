@@ -9,7 +9,7 @@
     # document/Image viewer
     zathura feh
     # terminal emulator
-    alacritty
+    termite
     # gnupg
     gnupg gpa pinentry
     # xorg tools
@@ -17,13 +17,11 @@
     # browser
     chromium google-chrome firefox qutebrowser
     # communication
-    signal-desktop slack riot-desktop thunderbird gnome3.evolution
+    signal-desktop slack riot-desktop gnome3.evolution aspellDicts.de aspellDicts.en
     # libnotify
     libnotify dunst
     #video
     mpv ffmpeg gstreamer gst-python
-    # coding
-    vscode
     #NetworkManager
     networkmanager-openvpn
     #password manager

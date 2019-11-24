@@ -41,21 +41,19 @@ let
       }
     '';
   # }}}
+  setupBindings = ''
+    # Bindings: {{{
+      ## window
+      # pane split key in current path
+      bind v split-window -v -c '#{pane_current_path}'
+      bind b split-window -h -c '#{pane_current_path}'
+    # }}}
+  '';
   setupRemote = ''
     # Remote {{{
     # Session is considered to be remote when we ssh into host
     if-shell 'test -n "$SSH_CLIENT"' \
         'set-option -g status-position top'
-    # }}}
-  '';
-  setupBindings = ''
-    # Bindings: {{{
-      # send prefix to remote session with Ctrl-B
-      bind -n C-b send-prefix
-      ## window
-      # pane split key in current path
-      bind v split-window -v -c '#{pane_current_path}'
-      bind b split-window -h -c '#{pane_current_path}'
     # }}}
   '';
 in
@@ -68,7 +66,7 @@ in
       customPaneNavigationAndResize = true;
       historyLimit = 10000;
       keyMode = "vi";
-      shortcut = "a";
+      shortcut = "b";
       extraTmuxConf = ''
         ${setupBasic}
         ${setupPowerline}

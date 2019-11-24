@@ -4,7 +4,6 @@ let
   # plugins {{{
     zshPlugins =
       ''
-        zsh-users/zsh-autosuggestions
         zdharma/fast-syntax-highlighting
         zdharma/history-search-multi-word
       '';
@@ -75,8 +74,8 @@ in
       interactiveShellInit = ''
         ${initGrml}
         ${initPowerline}
-        ${initAntibody}
         ${initPath}
+        #source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       '';
       shellAliases = {
         ssh = "TERM=xterm ssh";
@@ -91,6 +90,7 @@ in
         grml-zsh-config
         powerline-go
         antibody
+        zsh-autosuggestions
       ];
     };
   }

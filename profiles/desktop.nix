@@ -30,7 +30,10 @@
 
   ### NETWORK ##################################################################
   # use NetworkManager
-  networking.networkmanager.enable = lib.mkDefault true;
+  networking = {
+    networkmanager.enable = lib.mkDefault true;
+    dhcpcd.enable = lib.mkDefault false;
+  };
 
   ### SERVICES #################################################################
   services = {

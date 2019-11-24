@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 ## main personal Laptop
 # Lenovo Thinkpad T580
@@ -18,21 +18,19 @@ in
     ../../../profiles/laptop.nix
     ../../../profiles/fstab/lvm.nix
     ../../../profiles/pkgs/personal.nix
-    ../../../profiles/pkgs/study.nix
     # modules
     ../../../modules/hardware/cpu/intel
     ../../../modules/hardware/thinkpad
-    ../../../modules/services/networking/wireguard.nix
-    ../../../modules/services/xserver/window-managers/i3.nix
-    ../../../modules/services/hardware/pcscd.nix
-    ../../../modules/virtualisation/libvirtd
+    ../../../modules/hardware/devices/pcscd.nix
+    ../../../modules/hardware/devices/yubikey.nix
+    ../../../modules/networking/wireguard.nix
+    ../../../modules/virtualisation/libvirtd.nix
+    ../../../modules/xserver/window-managers/i3.nix
     # overlays
     ../../../overlays/HiDPI.nix
     ../../../overlays/no-nvidia.nix
     ../../../overlays/intel-vaapi.nix
     ../../../overlays/xorg-no-sleep.nix
-    # fix
-    ../../../fix/cpu-throttling-bug.nix
     # users
     ../../../users/sylv/full.nix
     # shells
@@ -41,6 +39,7 @@ in
 
   ### INIT #####################################################################
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+  boot.kernelParams = [ "i915.enable_psr=0" "i915.enable_guc=2" ];
 
   ### GENERAL ##################################################################
   host.name = "T580";
@@ -50,7 +49,7 @@ in
   host.boot.encryptHome = true;
   host.dpi = 192;
 
-  system.stateVersion = "19.03";
+  system.stateVersion = "19.09";
   nix.maxJobs = 8;
 
   ### USER #####################################################################
@@ -65,39 +64,37 @@ in
     # [https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface)
   ];
 
-  ### SERVICES #################################################################
+  ### GUI ######################################################################
   services = {
     # custom configuration
-    xserver.desktopManager.gnome3.enable = true;
+    xserver = {
+      # fallback gnome
+      desktopManager.gnome3.enable = true;
+    };
     compton = {
-      refreshRate = 60;
+      enable = true;
       vSync = true;
     };
+  };
+  # hide mouse
+  services.unclutter = {
+    enable = true;
   };
 
   ### POWER MANAGEMENT #########################################################
   services.tlp.extraConfig = ''
     START_CHARGE_THRESH_BAT0=60
-    STOP_CHARGE_THRESH_BAT0=80
+    STOP_CHARGE_THRESH_BAT0=90
     START_CHARGE_THRESH_BAT1=60
-    STOP_CHARGE_THRESH_BAT1=80
+    STOP_CHARGE_THRESH_BAT1=90
   '';
+
   ### VIRTUALISATION ###########################################################
   virtualisation.docker.enable = true;
 
-  ### MISC #####################################################################
-  # Yubikey
-  services.udev.packages = [ pkgs.yubikey-personalization ];
+  ### VPN ######################################################################
 
-  # hide mouse
-  services.unclutter.enable = true;
-
+  ### TMP ######################################################################
   # TODO: fix firewall restriction on mullvad vpn  (wireguard)
   networking.firewall.enable = false;
-
-  # some aliases
-  environment.shellAliases = {
-    tcup = "mosh cup.${secret.sylv.domain} -- tmux new-session -A -s cup";
-    irc = "mosh cup.${secret.sylv.domain} -- screen -D -R weechat -x weechat/weechat-screen";
-  };
 }

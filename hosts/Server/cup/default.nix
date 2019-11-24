@@ -1,12 +1,15 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   secret = import ../../../secrets.nix {};
+  weechat = pkgs.weechat.override {configure = {availablePlugins, ...}: {
+    plugins = with availablePlugins; [ (python.withPackages (ps: with ps; [ websocket_client ])) ];
+  };};
 in
 
-{
-  imports =
-    [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
+  {
+    imports =
+      [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
     #./webservices.nix
     # profile
     ../../../profiles/default.nix
@@ -14,10 +17,9 @@ in
     ../../../profiles/modules/headless.nix
     # users
     ../../../users/sylv
-    # services
     ./web-services/nginx.nix
     ./web-services/nextcloud.nix
-    ];
+  ];
 
   ### INIT #####################################################################
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];
@@ -28,7 +30,13 @@ in
   host.boot.device = "/dev/vda";
 
   system.stateVersion = "19.09";
-  nix.maxJobs = 2;
+  nix = {
+    maxJobs = 2;
+    nixPath = [
+      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/${config.host.name}"
+      "/nix/var/nix/profiles/per-user/root/channels"
+    ];
+  };
   deployment.targetHost = "${config.host.name}.${config.host.domain}";
   networking = secret.cup.networking;
 
@@ -54,13 +62,20 @@ in
   };
   host.ssh = true;
 
-  programs.mosh.enable= true;
-
   ### IRC ######################################################################
+  services.weechat = {
+    enable = true;
+    # use weechat with python
+    binary = "${weechat}/bin/weechat";
+    root = "/data/weechat";
+  };
+  programs = {
+    screen.screenrc = ''
+      multiuser on
+      acladd sylv
+    '';
+    mosh.enable= true;
+  };
+
   users.users.sylv.extraGroups = [ "weechat" ];
-  services.weechat.enable = true;
-  programs.screen.screenrc = ''
-    multiuser on
-    acladd sylv
-  '';
 }

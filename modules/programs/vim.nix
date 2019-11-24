@@ -268,6 +268,10 @@ let
       set term=screen-256color
     endif
     " }}}
+    " File format {{{
+    " yaml
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    " }}}
     " }}}
   '';
   setupPlugins = ''
@@ -289,12 +293,7 @@ let
     set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
     " }}}
     " NERDtree {{{
-    " Toogle on/off
     map <C-n> :NERDTreeToggle<CR>
-
-    " Locate file in hierarchy quickly
-    map <leader>T :NERDTreeFind<cr>
-
     " General properties
     let NERDTreeDirArrows=1
     let NERDTreeMinimalUI=1
@@ -346,10 +345,6 @@ let
             \ }
     " }}}
     " }}}
-    " gitgutter {{{
-    "let g:gitgutter_enabled=0
-    "nnoremap <silent> <leader>d :GitGutterToggle<cr>
-    " }}}
     " vim-fugitive {{{
     nmap <leader>gb :Gblame<cr>
     nmap <leader>gs :Gstatus<cr>
@@ -370,18 +365,15 @@ let
     " definition to search
     let g:go_decls_includes = "func,type"
 
-    " Go LPS
+    " Go to definition
     let g:go_def_mode='gopls'
+
     " Automatically get signature/type info for object under cursor
     let g:go_info_mode = 'gopls'
-    " let g:go_auto_type_info = 1
+    let g:go_auto_type_info = 1
 
-    " command hotkeys
     let g:go_fmt_fail_silently = 1
     let g:go_fmt_command = "gofmt" "Explicited the formater plugin (gofmt, goimports, goreturn...)
-
-    " move quickfix to the very bottom
-    autocmd FileType qf wincmd J
 
     " jump between errors
     "map <C-n> :cnext<CR>
@@ -444,14 +436,14 @@ let
             # vim basics
             { names = ["vim-airline" "vim-airline-themes" "molokai" "nerdtree" "vim-tmux-navigator" "vim-autoformat" ]; }
             # coding
-            { names = ["ale" "gitgutter" "vim-fugitive" "vim-go" "Tagbar" "neocomplete" "ultisnips" "ctrlp" "vim-nix"]; }
+            { names = ["ale" "gitgutter" "vim-fugitive" "vim-go" "Tagbar" "neocomplete" "ctrlp" "vim-nix"]; }
 
           ];
         };
       }
       )
       python37Packages.powerline
-      gotags
+      gotags gotools golangci-lint go-langserver
     ];
   }
 #  vim:foldmethod=marker:foldlevel=0

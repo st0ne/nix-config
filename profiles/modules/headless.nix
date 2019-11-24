@@ -37,7 +37,7 @@ with lib;
       };
     };
   };
-  
+
   config = {
   # enable serial console
   boot = lib.mkIf config.host.serial.enable {
@@ -55,7 +55,7 @@ with lib;
   services.openssh = lib.mkIf config.host.ssh {
     enable = true;
     passwordAuthentication = false;
-    permitRootLogin = "prohibit-password";
+    permitRootLogin = lib.mkDefault "prohibit-password";
     challengeResponseAuthentication = false;
   };
   };

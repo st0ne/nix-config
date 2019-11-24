@@ -5,16 +5,15 @@ let
 in
 {
   imports = [
-    # use zsh with custon plugins
-    ../../modules/programs/zsh.nix
+    ../../modules/programs/bash.nix
     ../../modules/programs/vim.nix
   ];
   users.users.sylv = {
     isNormalUser = true;
-    home = "/home/sylv/";
+    home = "/home/sylv";
     description = "Marcello Sylvester Bauer";
     createHome = true;
-    shell = "/run/current-system/sw/bin/zsh";
+    shell = "/run/current-system/sw/bin/bash";
     uid = 1337;
     group = "users";
     initialHashedPassword = secret.sylv.initialHashedPassword;
