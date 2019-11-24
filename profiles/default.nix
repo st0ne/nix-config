@@ -69,9 +69,6 @@ in
   imports = [
     ./pkgs/core.nix
 
-    # optional TODO: make lvm optional
-    ./fstab/lvm.nix
-
     # modules
     ../modules/programs/tmux.nix
   ];
@@ -91,7 +88,7 @@ in
       # old ifnames (e.g. eth0, wlan0)
       "net.ifnames=0"
     ];
-    loader = {
+    loader = lib.mkIf config.host.boot.default {
       efi = {
         canTouchEfiVariables = true;
         # I prefer a separated efi patition
