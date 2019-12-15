@@ -1,30 +1,22 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+with lib;
+
+let
+  cfg = config.virtualisation.libvirtd;
+  dirName = "libvirt";
+in
 {
   virtualisation.libvirtd = {
     enable = true;
-  };
-
-  system.activationScripts = {
-    libvirtd = {
-      text = ''
-      mkdir -p /data/host/libvirtd/qemu
-      ln -sfn  /data/host/libvirtd/qemu /var/lib/libvirt/
-      mkdir -p /data/host/libvirtd/storage/autostart
-      ln -sfn  /data/host/libvirtd/storage /var/lib/libvirt/
-      mkdir -p /data/host/libvirtd/secrets
-      ln -sfn  /data/host/libvirtd/secrets /var/lib/libvirt/
-      mkdir -p /data/host/libvirtd/images
-      ln -sfn  /data/host/libvirtd/images /var/lib/libvirt/
-      mkdir -p /data/host/libvirtd/kernel
-      ln -sfn  /data/host/libvirtd/kernel /var/lib/libvirt/
-      '';
-      deps = [];
-    };
+    #qemuRunAsRoot = false;
   };
   environment = {
-    systemPackages = with pkgs; [ virtmanager ];
+    systemPackages = with pkgs; [ virtmanager spice spice-protocol win-spice spice-gtk ];
     # Set the default connection string for `virsh` etc to be the system qemu instance.
     variables.LIBVIRT_DEFAULT_URI = "qemu:///system";
   };
+  # FIX:
+  security.wrappers.spice-client-glib-usb-acl-helper.source = "${pkgs.spice-gtk}/bin/spice-client-glib-usb-acl-helper";
+  systemd.services.libvirtd-config.serviceConfig.StateDirectory = lib.mkForce null;
 }

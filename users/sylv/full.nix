@@ -1,9 +1,79 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
+let
+  vim = {
+    # general {{{
+    generalConfig = ''
+      " current millenium
+      set nocompatible
+
+      " no backup
+      set nobackup
+
+      " Sets how many lines of history VIM has to remember
+      set history=500
+
+      " Enable filetype plugins
+      filetype plugin on
+      filetype indent on
+
+      " Set to auto read when a file is changed from the outside
+      set autoread
+
+      " Fast saving
+      nmap <leader>w :w!<cr>
+
+      " :W sudo saves the file
+      " (useful for handling the permission-denied error)
+      command W w !sudo tee % > /dev/null
+      '';
+    # }}}
+    # UI {{{
+    UIConfig = ''
+      " Show numbers
+      set number
+
+      " Show command
+      set showcmd
+
+      " Always show current position
+      set ruler
+
+      " Ignore case when searching
+      set ignorecase
+
+      " When searching try to be smart about cases
+      set smartcase
+
+      " Highlight search results
+      set hlsearch
+
+      " Makes search act like search in modern browsers
+      set incsearch
+
+      " Disable highlight when <leader><cr> is pressed
+      map <silent> <leader><cr> :noh<cr>
+
+      " Don't redraw while executing macros (good performance config)
+      set lazyredraw
+
+      " For regular expressions turn magic on
+      set magic
+
+      " Add a bit extra margin to the left, to set the fold range
+      "set foldcolumn=1
+      '';
+    # }}}
+
+
+  };
+in
 {
   imports = [
     ./.
     ../../extern/home-manager.nix
+
+    ./i3.nix
   ];
 
   home-manager.users.sylv = {
@@ -47,36 +117,49 @@
           # black
           color0  = #0c0d0e
           color8  = #737475
-
           # red
           color1  = #e31a1c
           color9  = #e31a1c
-
           # green
           color2  = #31a354
           color10 = #31a354
-
           # yellow
           color3  = #dca060
           color11 = #dca060
-
           # blue
           color4  = #3182bd
           color12 = #3182bd
-
           # magenta
           color5  = #756bb1
           color13 = #756bb1
-
           # cyan
           color6  = #80b1d3
           color14 = #80b1d3
-
           # white
           color7  = #b7b8b9
           color15 = #fcfdfe
-          '';
+        '';
+      };
+      neovim = {
+        enable = true;
+        viAlias = true;
+        plugins = [];
+        extraConfig = ''
+          ${vim.generalConfig}
+          ${vim.UIConfig}
+        '';
+      };
+    };
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "text/html" = [ "firefox.desktop" ];
+        "x-scheme-handler/http" = [ "firefox.desktop" ];
+        "x-scheme-handler/https" = [ "firefox.desktop" ];
+        "x-scheme-handler/about" = [ "firefox.desktop" ];
+        "x-scheme-handler/unknown" =[ "firefox.desktop" ];
       };
     };
   };
 }
+#  vim:foldmethod=marker:foldlevel=0

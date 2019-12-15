@@ -16,16 +16,21 @@ in
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
     ../../../profiles/laptop.nix
-    ../../../profiles/fstab/lvm.nix
+    ../../../profiles/modules/config.nix
     ../../../profiles/pkgs/personal.nix
+    ../../../profiles/fstab/zfs.nix
     # modules
     ../../../modules/hardware/cpu/intel
+    ../../../modules/hardware/gpu/intel
     ../../../modules/hardware/thinkpad
+    ../../../modules/hardware/storage/nvme.nix
     ../../../modules/hardware/devices/pcscd.nix
     ../../../modules/hardware/devices/yubikey.nix
     ../../../modules/networking/wireguard.nix
     ../../../modules/virtualisation/libvirtd.nix
     ../../../modules/xserver/window-managers/i3.nix
+    # extern
+    ../../../extern/home-manager.nix
     # overlays
     ../../../overlays/HiDPI.nix
     ../../../overlays/no-nvidia.nix
@@ -37,20 +42,34 @@ in
     ../../../shells
   ];
 
-  ### INIT #####################################################################
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
-  boot.kernelParams = [ "i915.enable_psr=0" "i915.enable_guc=2" ];
-
   ### GENERAL ##################################################################
   host.name = "T580";
+  host.boot.default = true;
   host.boot.efi = true;
   host.boot.device = "/dev/nvme0n1p1";
-  host.boot.encryptData = true;
-  host.boot.encryptHome = true;
   host.dpi = 192;
+  networking.hostId= "13dead37";
 
   system.stateVersion = "19.09";
   nix.maxJobs = 8;
+
+  ### INIT #####################################################################
+  boot = {
+    consoleLogLevel = 1;
+    plymouth.enable = true;
+    initrd.luks.devices."${config.host.name}" = {
+      device = "/dev/nvme0n1p2";
+      keyFile = "/keyfile.bin";
+      allowDiscards = true;
+    };
+    loader = {
+      grub = {
+        extraInitrd = "/boot/initrd.keys.gz";
+        enableCryptodisk = true;
+        zfsSupport = true;
+      };
+    };
+  };
 
   ### USER #####################################################################
   users.users.sylv.extraGroups = [
@@ -65,20 +84,14 @@ in
   ];
 
   ### GUI ######################################################################
-  services = {
-    # custom configuration
-    xserver = {
-      # fallback gnome
-      desktopManager.gnome3.enable = true;
-    };
-    compton = {
+  home-manager.users.sylv = {
+    services.compton = {
       enable = true;
-      vSync = true;
+      vSync = "opengl-swc";
     };
-  };
-  # hide mouse
-  services.unclutter = {
-    enable = true;
+    services.dunst = {
+      enable = true;
+    };
   };
 
   ### POWER MANAGEMENT #########################################################
@@ -90,11 +103,10 @@ in
   '';
 
   ### VIRTUALISATION ###########################################################
-  virtualisation.docker.enable = true;
-
-  ### VPN ######################################################################
+  #virtualisation.lxc.enable = true;
 
   ### TMP ######################################################################
-  # TODO: fix firewall restriction on mullvad vpn  (wireguard)
-  networking.firewall.enable = false;
+  # TODO: fix firewall restriction on mullvad vpn (wireguard)
+  #networking.firewall.enable = false;
+
 }

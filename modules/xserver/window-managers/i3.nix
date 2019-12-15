@@ -5,19 +5,6 @@
 
 {
   environment.pathsToLink = [ "/libexec" ];
-
-  system.userActivationScripts = {
-    # link to i3 config file
-    i3Setup = {
-      text = '' ln -sfn /data/user/$USER/Config/i3/${config.host.name}/ ~/.config/i3 '';
-      deps = [];
-    };
-    polybarSetup = {
-      text = '' ln -sfn /data/user/$USER/Config/polybar/${config.host.name} ~/.config/polybar '';
-      deps = [];
-    };
-  };
-
   services = {
     xserver.windowManager.i3 = {
       enable = true;

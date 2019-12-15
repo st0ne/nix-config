@@ -7,6 +7,7 @@ in
   imports = [
     ../../modules/programs/bash.nix
     ../../modules/programs/vim.nix
+    ../../modules/programs/tmux.nix
   ];
   users.users.sylv = {
     isNormalUser = true;

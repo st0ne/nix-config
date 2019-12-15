@@ -5,6 +5,7 @@ let
     # Basic: {{{
       # 256 colors for vim
       set -g default-terminal "screen-256color"
+      set-option -sg escape-time 10
     # }}}
   '';
   setupPowerline = ''

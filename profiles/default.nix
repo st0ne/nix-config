@@ -48,38 +48,16 @@ in
             efi: efi partition
           '';
         };
-        encryptData = mkOption {
-          type = types.bool;
-          default = false;
-          description = ''
-            encrypted data partition
-          '';
-        };
-        encryptHome = mkOption {
-          type = types.bool;
-          default = false;
-          description = ''
-            encrypted home partition
-          '';
-        };
       };
     };
 
   # import custom config
   imports = [
+    ../users
     ./pkgs/core.nix
-
-    # modules
-    ../modules/programs/tmux.nix
   ];
 
   config = {
-  # use my own Repo as source (no channels)
-  #nix.nixPath = [
-  #  "nixpkgs=${nixpkgsPath}"
-  #  "nixos-config=${nixos-configPath}/configuration.nix"
-  #];
-
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     cleanTmpDir = lib.mkDefault true;
@@ -90,9 +68,9 @@ in
     ];
     loader = lib.mkIf config.host.boot.default {
       efi = {
-        canTouchEfiVariables = true;
+        canTouchEfiVariables = lib.mkDefault false;
         # I prefer a separated efi patition
-        efiSysMountPoint = "/boot/efi";
+        efiSysMountPoint = "/efi";
       };
       # define grub2 as default bootloader
       grub = {
@@ -100,11 +78,12 @@ in
         version = 2;
         device = if config.host.boot.efi then "nodev" else config.host.boot.device;
         efiSupport = config.host.boot.efi;
+        efiInstallAsRemovable = lib.mkDefault true;
       };
     };
   };
   fileSystems = lib.mkIf config.host.boot.default {
-    "/boot/efi" = lib.mkIf config.host.boot.efi {
+    "/efi" = lib.mkIf config.host.boot.efi {
       device = config.host.boot.device;
       fsType = "vfat";
     };

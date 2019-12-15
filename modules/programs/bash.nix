@@ -5,7 +5,6 @@ let
   modules = ["nix-shell" "venv" "user" "host" "ssh" "cwd" "perms" "hg" "jobs" "root" "vgo" "git" "exit"];
   flags = ["colorize-hostname" "condensed"];
   powerlinePrompt = ''
-    export HOME=/home/$USER #BUG
     function _update_ps1() {
         PS1="$(powerline-go -error $? \
         -modules ${lib.strings.concatStringsSep "," modules} \
@@ -24,7 +23,7 @@ in
       vteIntegration = true;
       promptInit = powerlinePrompt;
       shellAliases = {
-        ssh = "TERM=xterm ssh";
+        ssh = "TERM=xterm-color ssh";
       };
     };
     environment ={
