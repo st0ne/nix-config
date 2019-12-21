@@ -37,7 +37,7 @@ in
     ../../../overlays/intel-vaapi.nix
     ../../../overlays/xorg-no-sleep.nix
     # users
-    ../../../users/sylv/full.nix
+    ../../../users/sylv/desktop.nix
     # shells
     ../../../shells
   ];
@@ -84,6 +84,7 @@ in
   ];
 
   ### GUI ######################################################################
+  #services.xserver.videoDrivers = [ "intel" "modesetting" ];
   home-manager.users.sylv = {
     services.compton = {
       enable = true;

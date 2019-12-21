@@ -33,8 +33,6 @@ with lib;
         TMP_PATH=/tmp/$USER
         TMP=$HOME/tmp
 
-        mkdir -p $TMP_PATH
-
         if [ ! -L $TMP ]
         then
           if [ -e $TMP ]
@@ -47,4 +45,10 @@ with lib;
       deps = [];
     };
   };
+  environment.extraInit = ''
+    if [ "$EUID" -ne 0 ]
+    then
+      mkdir -p /tmp/$USER
+    fi
+    '';
 }
