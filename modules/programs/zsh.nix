@@ -60,12 +60,6 @@ let
       fi
     fi
   '';
-  initPath = ''
-    # add Golang bin if path exists
-    if [ -d $HOME/go ];then
-      PATH=$PATH:$HOME/go/bin
-    fi
-  '';
   # }}}
 in
   {
@@ -74,7 +68,6 @@ in
       interactiveShellInit = ''
         ${initGrml}
         ${initPowerline}
-        ${initPath}
         #source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       '';
       shellAliases = {

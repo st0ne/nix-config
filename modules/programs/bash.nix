@@ -13,6 +13,15 @@ let
     if [ "$TERM" != "linux" ]; then
         PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
     fi
+
+    # Workaround for nix-shell --pure
+    if [ "$IN_NIX_SHELL" == "pure" ]; then
+        if [ -x "$HOME/.nix-profile/bin/powerline-go" ]; then
+            alias powerline-go="$HOME/.nix-profile/bin/powerline-go"
+        elif [ -x "/run/current-system/sw/bin/powerline-go" ]; then
+            alias powerline-go="/run/current-system/sw/bin/powerline-go"
+        fi
+    fi
   '';
   # }}}
 
@@ -40,9 +49,7 @@ in
         #LESS_TERMCAP_us = "$'\e[1;4;32m'";
       };
       systemPackages = with pkgs; [
-        grml-zsh-config
         powerline-go
-        antibody
       ];
     };
   }
