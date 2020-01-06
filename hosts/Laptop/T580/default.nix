@@ -78,13 +78,13 @@ in
     "video" # hardware acceleration access
     "dialout" # allow serial console access
     "libvirtd" # manage libvirt vms
+    "kvm" #libvirt user session
     "docker" # allow direct docker api access (Warning: The docker group grants
     # privileges equivalent to the root user.
     # [https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface)
   ];
 
   ### GUI ######################################################################
-  #services.xserver.videoDrivers = [ "intel" "modesetting" ];
   home-manager.users.sylv = {
     services.compton = {
       enable = true;
