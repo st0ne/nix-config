@@ -19,6 +19,7 @@ let
   dmenu-desktop = "${pkgs.i3}/bin/i3-dmenu-desktop";
   qutebrowser = "${pkgs.qutebrowser}/bin/qutebrowser";
   keepass = "${pkgs.keepassxc}/bin/keepassxc";
+  lock = "${pkgs.i3lock}/bin/i3lock -c 666666";
   signal = "${pkgs.signal-desktop}/bin/signal-desktop";
   slack = "${pkgs.slack}/bin/slack";
   chromium = "${pkgs.chromium}/bin/chromium";
@@ -62,6 +63,7 @@ let
         status_full = " "
         path = "/sys/class/power_supply/BAT%d/uevent"
         low_threshold = 5
+        last_full_capacity = true
     }
 
     battery 1 {
@@ -72,7 +74,8 @@ let
         status_unk = " "
         status_full = " "
         path = "/sys/class/power_supply/BAT%d/uevent"
-        low_threshold = 10
+        low_threshold = 5
+        last_full_capacity = true
     }
 
     tztime local {
@@ -168,7 +171,8 @@ in
 
         "${modkey}+shift+q" = "kill";
         "${modkey}+shift+r" = "restart";
-        "${modkey}+shift+Escape" =  "exit";
+        "${modkey}+shift+Escape" = "exit";
+        "${modkey}+shift+x" = "exec ${lock}";
 
         # Programs
         "${modkey}+Return" = "exec ${terminal}";

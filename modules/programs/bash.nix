@@ -30,7 +30,9 @@ in
     programs.bash = {
       enableCompletion = true;
       vteIntegration = true;
-      promptInit = powerlinePrompt;
+      promptInit = ''
+        ${powerlinePrompt}
+        '';
       shellAliases = {
         ssh = "TERM=xterm-color ssh";
       };

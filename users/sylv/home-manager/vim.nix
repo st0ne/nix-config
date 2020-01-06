@@ -12,8 +12,6 @@ let
   '';
   setupBasic =''
     " General {{{
-    " ref: https://github.com/leblancd/vim-go-ide/blob/master/vimrcs/basic.vim
-
     " enter the current millenium
     set nocompatible
 
@@ -23,16 +21,6 @@ let
     " Enable filetype plugins
     filetype plugin on
     filetype indent on
-
-    " Set to auto read when a file is changed from the outside
-    set autoread
-
-    " change leader key
-    let mapleader = ","
-    let g:mapleader = ","
-
-    " spawn buffer on the bottom
-    set splitbelow
 
     " Fast saving
     nmap <leader>w :w!<cr>
@@ -45,10 +33,6 @@ let
     " UI {{{
     " Turn on the WiLd menu
     set wildmenu
-
-    " Ignore compiled files
-    set wildignore=*.o,*~,*.pyc
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
     " Show numbers
     set number
@@ -127,10 +111,6 @@ let
     " set display mode of unwanted characters
     set listchars=tab:>-,nbsp:_,trail:•
 
-    " Linebreak on 500 characters
-    set lbr
-    set tw=500
-
     set ai "Auto indent
     set si "Smart indent
     set wrap "Wrap lines
@@ -186,6 +166,7 @@ let
       %s/\s\+$//ge
       exe "normal `z"
     endfunc
+    autocmd BufWrite *.md :call DeleteTrailingWS()
     autocmd BufWrite *.py :call DeleteTrailingWS()
     autocmd BufWrite *.go :call DeleteTrailingWS()
     autocmd BufWrite *.nix :call DeleteTrailingWS()
@@ -203,9 +184,6 @@ let
     " Misc {{{
     " Remove the Windows ^M - when the encodings gets messed up
     noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-    " Quickly open a buffer for scribble
-    map <leader>q :e ~/buffer<cr>
 
     " Toggle paste mode on and off
     map <leader>pp :setlocal paste!<cr>
@@ -293,7 +271,7 @@ let
     set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
     " }}}
     " NERDtree {{{
-    map <C-n> :NERDTreeToggle<CR>
+    "map <C-n> :NERDTreeToggle<CR>
     " General properties
     let NERDTreeDirArrows=1
     let NERDTreeMinimalUI=1
@@ -310,7 +288,7 @@ let
     " }}}
     " Tagbar {{{
     " Toogle on/off
-    map <C-m> :TagbarToggle<CR>
+    "<C-m> :TagbarToggle<CR>
     " context-based definitions
     " Go {{{
     " auto open on go files
@@ -356,9 +334,6 @@ let
     nmap <leader>gw :Gwrite<cr>
     " }}}
     " vim-go {{{
-    " writes the content of the file automatically
-    set autowrite
-
     " no template
     let g:go_template_autocreate = 0
 
@@ -376,8 +351,8 @@ let
     let g:go_fmt_command = "gofmt" "Explicited the formater plugin (gofmt, goimports, goreturn...)
 
     " jump between errors
-    "map <C-n> :cnext<CR>
-    "map <C-m> :cprevious<CR>
+    map <C-n> :cnext<CR>
+    map <C-m> :cprevious<CR>
     "nnoremap <leader>a :cclose<CR>
 
     " syntax-highlighting
@@ -413,37 +388,29 @@ let
     " }}}
     " }}}
   '';
-
-    in
-    {
-      environment.systemPackages = with pkgs; [
-        (
-          with import <nixpkgs> {};
-
-          vim_configurable.customize {
-            # override vim
-            # TODO: specify vim (light) and vim-ide (bloaded)
-            name = "vim";
-          # .vimrc:
-          vimrcConfig = {
-            customRC = ''
-              ${learningMode}
-              ${setupBasic}
-              ${setupPlugins}
-            '';
-            vam.knownPlugins = pkgs.vimPlugins; # optional
-            vam.pluginDictionaries = [
-            # vim basics
-            { names = ["vim-airline" "vim-airline-themes" "molokai" "nerdtree" "vim-tmux-navigator" "vim-autoformat" ]; }
-            # coding
-            { names = ["ale" "gitgutter" "vim-fugitive" "vim-go" "Tagbar" "neocomplete" "ctrlp" "vim-nix"]; }
-
-          ];
-        };
-      }
-      )
-      python37Packages.powerline
-      gotags gotools golangci-lint go-langserver
+in
+{
+  home-manager.users.sylv.programs.vim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      # colorscheme
+      molokai
+      # syntax
+      vim-nix
+      # UI
+      vim-airline vim-airline-themes nerdtree Tagbar
+      # misc
+      ale gitgutter vim-fugitive vim-go neocomplete ctrlp
     ];
-  }
+    extraConfig = ''
+      ${learningMode}
+      ${setupBasic}
+      ${setupPlugins}
+    '';
+  };
+  environment.systemPackages = with pkgs; [
+    python37Packages.powerline ctags
+    gotags gotools golangci-lint go-langserver
+  ];
+}
 #  vim:foldmethod=marker:foldlevel=0

@@ -15,15 +15,10 @@
     vdpauinfo
   ];
 
-  # ref: https://nixos.wiki/wiki/Accelerated_Video_Playback
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
-
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
-      vaapiIntel
+      vaapi-intel-hybrid
       vaapiVdpau
       libva-full
       libvdpau-va-gl

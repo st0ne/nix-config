@@ -3,17 +3,17 @@
 {
   boot.supportedFilesystems = ["zfs"];
   fileSystems."/" =
-    { device = "${config.host.name}-rpool/root/nixos";
+    { device = "${config.host.name}-zroot/root/nixos";
       fsType = "zfs";
     };
 
   fileSystems."/data" =
-    { device = "${config.host.name}-rpool/data";
+    { device = "${config.host.name}-zroot/data";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "${config.host.name}-rpool/home";
+    { device = "${config.host.name}-zroot/home";
       fsType = "zfs";
     };
 

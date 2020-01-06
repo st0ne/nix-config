@@ -6,12 +6,11 @@ in
 {
   imports = [
     ../../modules/programs/bash.nix
-    ../../modules/programs/vim.nix
     ../../modules/programs/tmux.nix
     # home-manager
     ../../extern/home-manager.nix
     ./home-manager/git.nix
-    ./home-manager/nvim.nix
+    ./home-manager/vim.nix
     ./home-manager/xdg.nix
   ];
   users.users.sylv = {
