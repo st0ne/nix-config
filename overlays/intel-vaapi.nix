@@ -18,7 +18,7 @@
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
-      vaapi-intel-hybrid
+      vaapiIntel
       vaapiVdpau
       libva-full
       libvdpau-va-gl

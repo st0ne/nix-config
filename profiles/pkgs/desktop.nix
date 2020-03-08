@@ -8,8 +8,6 @@
   environment.systemPackages = with pkgs; [
     # document/Image viewer
     zathura feh
-    # terminal emulator
-    termite
     # gnupg
     gnupg gpa pinentry
     # xorg tools

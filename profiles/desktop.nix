@@ -8,8 +8,7 @@
     ./default.nix # parent
     ./pkgs/desktop.nix
 
-    ./modules/theme.nix
-    ./modules/x11.nix
+    #./modules/theme.nix
   ];
 
   ### HARDWARE #################################################################
@@ -34,14 +33,29 @@
     dhcpcd.enable = lib.mkDefault false;
   };
 
+  ### FONTS ####################################################################
+  fonts = {
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
+    enableDefaultFonts = true;
+    fonts = with pkgs; [
+    hack-font
+    dejavu_fonts
+    fira-code
+    font-awesome-ttf
+    ];
+    fontconfig = {
+      enable = lib.mkDefault true;
+      defaultFonts = {
+        monospace = [ "Hack" ];
+        sansSerif = [ "DejaVu Sans" ];
+        serif     = [ "DejaVu" ];
+      };
+    };
+  };
+
   ### SERVICES #################################################################
   services = {
-    # gnome services
-    gnome3 = {
-      evolution-data-server.enable = true;
-      gnome-keyring.enable = true;
-      gnome-online-accounts.enable = true;
-    };
     # minimize log size
     journald.extraConfig = "SystemMaxUse=500M";
     # enable avahi protocol to mdns addresses
@@ -50,11 +64,13 @@
       nssmdns = true;
       #ipv6 = true;
     };
+    blueman.enable = lib.mkDefault true;
     # secure firmware updates
     fwupd.enable = lib.mkDefault true;
     # ACPI event handler
     acpid.enable = true;
   };
+
   programs = {
     # enable gnupg ssh-agent
     gnupg.agent = {

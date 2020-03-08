@@ -121,6 +121,8 @@ in
 
   # allow ping
   networking.firewall.allowPing = true;
+  # disable annoying network logs
+  networking.firewall.logRefusedConnections = false;
 
   location = {
     # hard code geolocation for redshift

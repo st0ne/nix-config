@@ -4,15 +4,7 @@ let
   secret = import ../../secrets.nix {};
 in
 {
-  imports = [
-    ../../modules/programs/bash.nix
-    ../../modules/programs/tmux.nix
-    # home-manager
-    ../../extern/home-manager.nix
-    ./home-manager/git.nix
-    ./home-manager/vim.nix
-    ./home-manager/xdg.nix
-  ];
+  environment.systemPackages = with pkgs; [ home-manager ];
   users.users.sylv = {
     isNormalUser = true;
     home = "/home/sylv";
