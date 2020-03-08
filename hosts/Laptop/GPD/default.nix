@@ -25,7 +25,6 @@
 
   ### GENERAL ##################################################################
   host.name = "GPD";
-  host.boot.default = true;
   host.boot.efi = true;
   host.boot.device = "/dev/sda1";
   networking.hostId = "dead1337";

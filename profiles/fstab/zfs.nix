@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config , ... }:
 
 {
   boot.supportedFilesystems = ["zfs"];
@@ -10,10 +10,5 @@
   fileSystems."/data" =
     { device = "${config.host.name}/data";
       fsType = "zfs";
-    };
-
-  fileSystems."/efi" =
-    { device = config.host.boot.device;
-      fsType = "vfat";
     };
 }
