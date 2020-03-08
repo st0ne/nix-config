@@ -45,7 +45,7 @@ in
   # import custom config
   imports = [
     ../users
-    ./pkgs/core.nix
+    ./pkgs
   ];
 
   config = {

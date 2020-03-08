@@ -4,6 +4,8 @@
 # ref: https://wiki.archlinux.org/index.php/Hardware_video_acceleration
 
 {
+  imports = [ ./. ];
+
   environment.variables = {
     LIBVA_DRIVER_NAME = "iHD";
     VDPAU_DRIVER = "va_gl";

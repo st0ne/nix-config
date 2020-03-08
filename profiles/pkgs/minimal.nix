@@ -3,10 +3,7 @@
 # It includes essential pkgs.
 
 {
-  imports =
-  [
-    ./core.nix # parent
-  ];
+  imports = [ ./. ];
 
   ### PKGS #####################################################################
   nixpkgs.config.allowUnfree = true;

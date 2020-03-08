@@ -7,8 +7,7 @@
   imports = [
     ./default.nix # parent
     ./pkgs/desktop.nix
-
-    #./modules/theme.nix
+    ../modules/networking/network-manager.nix
   ];
 
   ### HARDWARE #################################################################

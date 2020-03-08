@@ -6,19 +6,15 @@
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
     ../../../profiles/laptop.nix
-    ../../../profiles/modules/config.nix
-    ../../../profiles/pkgs/personal.nix
     ../../../profiles/fstab/zfs.nix
     # modules
     ../../../modules/hardware/cpu/intel
-    ../../../modules/hardware/gpu/intel
+    ../../../modules/hardware/gpu/intel/vaapi.nix
     ../../../modules/hardware/vendor/GPD
     ../../../modules/hardware/devices/yubikey.nix
     ../../../modules/hardware/devices/pcscd.nix
     ../../../modules/networking/wireguard.nix
     ../../../modules/wayland/sway.nix
-    # overlays
-    ../../../overlays/intel-vaapi.nix
     # users
     ../../../users/sylv/default.nix
   ];
