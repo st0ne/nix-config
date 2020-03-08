@@ -12,6 +12,7 @@
     # modules
     ../../../modules/hardware/cpu/intel
     ../../../modules/hardware/gpu/intel
+    ../../../modules/hardware/vendor/GPD
     ../../../modules/hardware/devices/yubikey.nix
     ../../../modules/hardware/devices/pcscd.nix
     ../../../modules/networking/wireguard.nix
@@ -49,7 +50,7 @@
   };
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" ];
-  boot.kernelParams = [ "intel_iommu=on" "video=efifb" "fbcon=rotate:1" ];
+  boot.kernelParams = [ "intel_iommu=on" ];
 
   ### USER #####################################################################
   users.users.sylv.extraGroups = [
@@ -60,41 +61,4 @@
     "kvm" #libvirt user session
   ];
 
-  ### POWER MANAGEMENT #########################################################
-  services.tlp.extraConfig = ''
-    USB_BLACKLIST="6080:8061"
-    SOUND_POWER_SAVE_ON_AC=0
-    SOUND_POWER_SAVE_ON_BAT=0
-    SOUND_POWER_SAVE_CONTROLLER=N
-  '';
-    powerManagement.powertop.enable = false;
-
-  ### fix ######################################################################
-  #services.xserver.enable = false;
-  services.xserver.videoDrivers = [ "intel" ];
-  services.xserver.deviceSection = ''
-    Option "TearFree" "true"
-  '';
-  services.xserver.xrandrHeads = [
-    {
-      output = "DSI-1";
-      monitorConfig = ''
-      Option "Rotate" "right"
-      '';
-    }
-    {
-      output = "DSI1";
-      monitorConfig = ''
-      Option "Rotate" "right"
-      '';
-    }
-  ];
-  services.xserver.config = ''
-    Section "InputClass"
-      Identifier "AMR-4630-XXX-0- 0-1023 USB KEYBOARD Mouse"
-      Option "AccelSpeed" "1"
-      Option "ScrollMethod" "button"
-      Option "MiddleEmulation" "on"
-    EndSection
-    '';
 }

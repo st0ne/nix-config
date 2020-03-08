@@ -22,7 +22,7 @@ in
     # modules
     ../../../modules/hardware/cpu/intel
     ../../../modules/hardware/gpu/intel
-    ../../../modules/hardware/thinkpad
+    ../../../modules/hardware/vendor/thinkpad
     ../../../modules/hardware/storage/nvme.nix
     ../../../modules/hardware/devices/pcscd.nix
     ../../../modules/hardware/devices/yubikey.nix
