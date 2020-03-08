@@ -12,7 +12,7 @@ Usage
 -----
 
 You probably shouldn't use my complete configurations directly.
-However a lot of my configurations inside `/modules`, `/overlays` and `/fix` should
+However a lot of my configurations inside `/modules`, `/overrides` and `/fix` should
 work as stand-alone. Feel free to use them in your own configuration. :)
 
 Folders
@@ -32,7 +32,7 @@ Configuration of NixOS modules using the same directory structure as the
 official [nixpkgs](https://github.com/NixOS/nixpkgs/tree/master/nixos/modules)
 repository.
 
-### `/overlays`
+### `/overrides`
 
 Miscellaneous configurations.
 

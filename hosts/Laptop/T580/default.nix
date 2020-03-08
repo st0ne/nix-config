@@ -31,11 +31,11 @@ in
     ../../../modules/xserver/window-managers/i3.nix
     # extern
     ../../../extern/home-manager.nix
-    # overlays
-    ../../../overlays/HiDPI.nix
-    ../../../overlays/no-nvidia.nix
-    ../../../overlays/intel-vaapi.nix
-    ../../../overlays/xorg-no-sleep.nix
+    # overrides
+    ../../../overrides/HiDPI.nix
+    ../../../overrides/no-nvidia.nix
+    ../../../overrides/intel-vaapi.nix
+    ../../../overrides/xorg-no-sleep.nix
     # users
     ../../../users/sylv/desktop.nix
     # shells
