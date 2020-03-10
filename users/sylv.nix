@@ -1,9 +1,10 @@
 { pkgs, ... }:
 
 let
-  secret = import ../../secrets.nix {};
+  secret = import ../secrets.nix {};
 in
 {
+  imports =[ ./. ];
   environment.systemPackages = with pkgs; [ home-manager ];
   users.users.sylv = {
     isNormalUser = true;

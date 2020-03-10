@@ -5,18 +5,19 @@
     [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
-    ../../../profiles/laptop.nix
-    ../../../profiles/fstab/zfs.nix
+    ../../../nixos/profiles/laptop.nix
+    ../../../nixos/profiles/fstab/zfs.nix
     # modules
-    ../../../modules/hardware/cpu/intel
-    ../../../modules/hardware/gpu/intel/vaapi.nix
-    ../../../modules/hardware/vendor/GPD
-    ../../../modules/hardware/devices/yubikey.nix
-    ../../../modules/hardware/devices/pcscd.nix
-    ../../../modules/networking/wireguard.nix
-    ../../../modules/wayland/sway.nix
+    ../../../nixos/configs/hardware/cpu/intel
+    ../../../nixos/configs/hardware/gpu/intel/vaapi.nix
+    ../../../nixos/configs/hardware/vendor/GPD
+    ../../../nixos/configs/hardware/devices/yubikey.nix
+    ../../../nixos/configs/hardware/devices/pcscd.nix
+    ../../../nixos/configs/networking/wireguard/mullvad.nix
+    ../../../nixos/configs/wayland/sway.nix
+    ../../../nixos/configs/virtualisation/libvirtd.nix
     # users
-    ../../../users/sylv/default.nix
+    ../../../users/sylv.nix
   ];
 
   ### GENERAL ##################################################################
@@ -54,6 +55,7 @@
     "video" # hardware acceleration access
     "dialout" # allow serial console access
     "kvm" #libvirt user session
+    "libvirtd" # manage libvirt vms
   ];
 
 }

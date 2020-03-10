@@ -44,7 +44,6 @@ in
 
   # import custom config
   imports = [
-    ../users
     ./pkgs
   ];
 
