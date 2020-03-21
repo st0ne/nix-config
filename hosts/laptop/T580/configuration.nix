@@ -15,39 +15,29 @@ in
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
-    ../../../profiles/laptop.nix
-    ../../../profiles/modules/config.nix
-    ../../../profiles/pkgs/personal.nix
-    ../../../profiles/fstab/zfs.nix
-    # modules
-    ../../../modules/hardware/cpu/intel
-    ../../../modules/hardware/gpu/intel
-    ../../../modules/hardware/vendor/thinkpad
-    ../../../modules/hardware/storage/nvme.nix
-    ../../../modules/hardware/devices/pcscd.nix
-    ../../../modules/hardware/devices/yubikey.nix
-    ../../../modules/networking/wireguard.nix
-    ../../../modules/virtualisation/libvirtd.nix
-    ../../../modules/xserver/window-managers/i3.nix
-    # extern
-    ../../../extern/home-manager.nix
+    ../../../nixos/profiles/laptop.nix
+    ../../../nixos/profiles/fstab/zfs.nix
+    # configs
+    ../../../nixos/configs/hardware/cpu/intel
+    ../../../nixos/configs/hardware/gpu/intel/vaapi.nix
+    ../../../nixos/configs/hardware/vendor/thinkpad
+    ../../../nixos/configs/hardware/storage/nvme.nix
+    ../../../nixos/configs/hardware/devices/pcscd.nix
+    ../../../nixos/configs/hardware/devices/yubikey.nix
+    ../../../nixos/configs/networking/wireguard
+    ../../../nixos/configs/virtualisation/libvirtd.nix
+    ../../../nixos/configs/wayland/sway.nix
     # overrides
-    ../../../overrides/HiDPI.nix
-    ../../../overrides/no-nvidia.nix
-    ../../../overrides/intel-vaapi.nix
-    ../../../overrides/xorg-no-sleep.nix
+    ../../../nixos/overrides/no-nvidia.nix
+    ../../../nixos/overrides/HiDPI.nix
     # users
-    ../../../users/sylv/desktop.nix
-    # shells
-    ../../../shells
+    ../../../users/sylv.nix
   ];
 
   ### GENERAL ##################################################################
   host.name = "T580";
-  host.boot.default = true;
   host.boot.efi = true;
   host.boot.device = "/dev/nvme0n1p1";
-  host.dpi = 192;
   networking.hostId= "13dead37";
 
   system.stateVersion = "19.09";
@@ -55,8 +45,6 @@ in
 
   ### INIT #####################################################################
   boot = {
-    consoleLogLevel = 1;
-    plymouth.enable = true;
     initrd.luks.devices."${config.host.name}" = {
       device = "/dev/nvme0n1p2";
       keyFile = "/keyfile.bin";
@@ -79,21 +67,10 @@ in
     "dialout" # allow serial console access
     "libvirtd" # manage libvirt vms
     "kvm" #libvirt user session
-    "docker" # allow direct docker api access (Warning: The docker group grants
+    #"docker" # allow direct docker api access (Warning: The docker group grants
     # privileges equivalent to the root user.
     # [https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface)
   ];
-
-  ### GUI ######################################################################
-  home-manager.users.sylv = {
-    services.compton = {
-      enable = true;
-      vSync = "opengl-swc";
-    };
-    services.dunst = {
-      enable = true;
-    };
-  };
 
   ### POWER MANAGEMENT #########################################################
   services.tlp.extraConfig = ''
@@ -104,10 +81,5 @@ in
   '';
 
   ### VIRTUALISATION ###########################################################
-  #virtualisation.lxc.enable = true;
-
-  ### TMP ######################################################################
-  # TODO: fix firewall restriction on mullvad vpn (wireguard)
-  #networking.firewall.enable = false;
-
+  virtualisation.docker.enable = true;
 }
