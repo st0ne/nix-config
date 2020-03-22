@@ -25,6 +25,7 @@ let
 in {
 
   home.packages = with pkgs; [
+    sway
     start-sway
     swaylock # lockscreen
     swayidle
@@ -133,7 +134,9 @@ in {
     Service = {
       Type = "dbus";
       BusName = "org.freedesktop.Notifications";
-      ExecStart = "${pkgs.mako}/bin/mako";
+      ExecStart = ''${pkgs.mako}/bin/mako \
+        --default-timeout 10000
+        '';
       RestartSec = 3;
       Restart = "always";
     };

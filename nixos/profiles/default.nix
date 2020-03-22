@@ -8,8 +8,9 @@ let
   de = "de_DE.UTF-8";
 in
   {
-    options.host = {
-      name = mkOption {
+    # custom option declaration
+    options.custom = {
+      hostname = mkOption {
         type = types.str;
         default = "defaulthost";
         description = ''
@@ -66,14 +67,14 @@ in
         grub = {
           enable = lib.mkDefault true;
           version = 2;
-          device = if config.host.boot.efi then "nodev" else config.host.boot.device;
-          efiSupport = config.host.boot.efi;
+          device = if config.custom.boot.efi then "nodev" else config.custom.boot.device;
+          efiSupport = config.custom.boot.efi;
           efiInstallAsRemovable = lib.mkDefault true;
         };
       };
     };
-    fileSystems."/efi" = lib.mkIf config.host.boot.efi {
-      device = config.host.boot.device;
+    fileSystems."/efi" = lib.mkIf config.custom.boot.efi {
+      device = config.custom.boot.device;
       fsType = "vfat";
     };
 
@@ -101,8 +102,8 @@ in
     time.timeZone = lib.mkDefault "Europe/Berlin";
 
     # hostname
-    networking.hostName = config.host.name;
-    networking.domain = config.host.domain;
+    networking.hostName = config.custom.hostname;
+    networking.domain = config.custom.domain;
 
     # vim as default editor
     programs.vim.defaultEditor = true;

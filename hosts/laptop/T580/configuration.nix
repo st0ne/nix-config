@@ -35,9 +35,9 @@ in
   ];
 
   ### GENERAL ##################################################################
-  host.name = "T580";
-  host.boot.efi = true;
-  host.boot.device = "/dev/nvme0n1p1";
+  custom.hostname = "T580";
+  custom.boot.efi = true;
+  custom.boot.device = "/dev/nvme0n1p1";
   networking.hostId= "13dead37";
 
   system.stateVersion = "19.09";
@@ -45,7 +45,7 @@ in
 
   ### INIT #####################################################################
   boot = {
-    initrd.luks.devices."${config.host.name}" = {
+    initrd.luks.devices."${config.custom.hostname}" = {
       device = "/dev/nvme0n1p2";
       keyFile = "/keyfile.bin";
       allowDiscards = true;

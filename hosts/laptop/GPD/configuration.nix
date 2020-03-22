@@ -21,9 +21,9 @@
   ];
 
   ### GENERAL ##################################################################
-  host.name = "GPD";
-  host.boot.efi = true;
-  host.boot.device = "/dev/sda1";
+  custom.hostname = "GPD";
+  custom.boot.efi = true;
+  custom.boot.device = "/dev/sda1";
   networking.hostId = "dead1337";
 
   system.stateVersion = "19.09";
@@ -31,7 +31,7 @@
 
   ### INIT #####################################################################
   boot = {
-    initrd.luks.devices."${config.host.name}" = {
+    initrd.luks.devices."${config.hostname}" = {
       device = "/dev/sda2";
       keyFile = "/keyfile.bin";
       allowDiscards = true;
