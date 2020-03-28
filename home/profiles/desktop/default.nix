@@ -2,17 +2,14 @@
 
 let
   desktopConfigs = [
-    ../configs/termite.nix
+    ../../configs/termite.nix
   ];
   desktopPkgs = with pkgs; [
-    dmenu
     firefox
-    spotify
-    thunderbird
   ];
 in
 {
-  imports = [ ./. ] ++ desktopConfigs;
+  imports = [ ../. ] ++ desktopConfigs;
 
   home.packages = desktopPkgs;
 }

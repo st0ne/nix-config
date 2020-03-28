@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../../home/profiles/desktop.nix
+    ../../../home/profiles/desktop
     ../../../home/configs/sway.nix
   ];
 }
