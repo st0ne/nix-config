@@ -7,10 +7,6 @@
 # dGPU: NVIDIA GeForce MX150 (inactive)
 # Display: 15.6" UHD (3840 x 2160)
 
-let
-  secret = import ../../../secrets.nix {};
-in
-
 {
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
@@ -31,7 +27,7 @@ in
     ../../../nixos/overrides/no-nvidia.nix
     ../../../nixos/overrides/HiDPI.nix
     # users
-    ../../../users/sylv.nix
+    ../../../users/sylv/configuration.nix
   ];
 
   ### GENERAL ##################################################################

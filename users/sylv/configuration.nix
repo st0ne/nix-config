@@ -1,11 +1,11 @@
 { pkgs, ... }:
 
 let
-  secret = import ../secrets.nix {};
+  creds = import ./secrets/creds.nix {};
 in
 {
-  imports =[ ./. ];
-  environment.systemPackages = with pkgs; [ home-manager ];
+  imports =[ ../. ];
+  environment.systemPackages = with pkgs;[ home-manager git-crypt ];
   users.users.sylv = {
     isNormalUser = true;
     home = "/home/sylv";
@@ -14,7 +14,7 @@ in
     shell = "/run/current-system/sw/bin/bash";
     uid = 1337;
     group = "users";
-    initialHashedPassword = secret.sylv.initialHashedPassword;
-    openssh.authorizedKeys.keys = secret.sylv.authorizedKeys.keys;
+    initialHashedPassword = creds.initialHashedPassword;
+    openssh.authorizedKeys.keys = creds.authorizedKeys;
   };
 }

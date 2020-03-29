@@ -17,7 +17,7 @@
     ../../../nixos/configs/wayland/sway.nix
     ../../../nixos/configs/virtualisation/libvirtd.nix
     # users
-    ../../../users/sylv.nix
+    ../../../users/sylv/configuration.nix
   ];
 
   ### GENERAL ##################################################################

@@ -1,5 +1,7 @@
-{ config, pkgs, ... }:
-
+{ pkgs, ... }:
+let
+  creds = import ../../users/sylv/secrets/creds.nix {};
+in
 {
   programs.git = {
     enable = true;
@@ -14,6 +16,10 @@
     ignores = [ "*~" "*.swp" ];
     extraConfig = {
       uploadpack.allowAnySHA1InWant = true;
+    };
+    signing = {
+      key = creds.gpgFingerprint;
+      signByDefault = true;
     };
   };
 }
