@@ -1,7 +1,10 @@
 { config, lib, ... }:
 
-# persistent configuration
 {
+  networking = {
+    networkmanager.enable = lib.mkDefault true;
+    dhcpcd.enable = lib.mkDefault false;
+  };
   system.activationScripts = {
     networkmanagerSetup = {
       text = ''

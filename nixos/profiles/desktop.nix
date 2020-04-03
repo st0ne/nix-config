@@ -25,13 +25,6 @@
   # enable accelerated OpenGL rendering
   hardware.opengl.enable = lib.mkDefault true;
 
-  ### NETWORK ##################################################################
-  # use NetworkManager
-  networking = {
-    networkmanager.enable = lib.mkDefault true;
-    dhcpcd.enable = lib.mkDefault false;
-  };
-
   ### FONTS ####################################################################
   fonts = {
     enableFontDir = true;

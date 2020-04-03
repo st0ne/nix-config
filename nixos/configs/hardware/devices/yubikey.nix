@@ -1,7 +1,14 @@
 { lib, pkgs, ... }:
 
 {
-  services.udev.packages = [ pkgs.yubikey-personalization ];
-  environment.systemPackages = with pkgs; [ yubikey-manager yubikey-manager-qt ];
+  services.udev.packages = with pkgs; [
+    yubikey-personalization
+    libu2f-host
+  ];
+  environment.systemPackages = with pkgs; [
+    yubikey-personalization
+    yubikey-manager
+    yubikey-manager-qt
+  ];
 }
 

@@ -17,7 +17,4 @@ in
 {
   imports = baseConfigs;
   home.packages = basePkgs;
-
-  # Let Home Manager install and manage itself.
-  #programs.home-manager.enable = true;
 }
