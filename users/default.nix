@@ -10,13 +10,13 @@ in
     # create user data path for each normal user
     dataPath = {
       text = ''
-        for _USER in ${lib.strings.concatStringsSep " " normalUsers}
-        do
-          _GROUP=$(id -gn $_USER)
+        for _USER in ${lib.strings.concatStringsSep " " normalUsers}; do
           _USERDATA=/data/user/$_USER
-
-          mkdir -p $_USERDATA
-          chown -R $_USER:$_GROUP $_USERDATA
+          if [ ! -d $_USERDATA ]; then
+            _GROUP=$(id -gn $_USER)
+            mkdir -p $_USERDATA
+            chown -R $_USER:$_GROUP $_USERDATA
+          fi
         done
       '';
       deps = [];
