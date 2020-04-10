@@ -5,10 +5,10 @@
 with lib;
 
 {
-  options.host = {
+  options.headless = {
     ssh = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
       description = ''
       enable ssh
       '';
@@ -37,23 +37,22 @@ with lib;
       };
     };
   };
-
+  imports = [ ./default.nix ];
   config = {
-    imports = [ ./default.nix ];
     # enable serial console
-    boot = lib.mkIf config.host.serial.enable {
+    boot = lib.mkIf config.headless.serial.enable {
       kernelParams = [
-        "console=${config.host.serial.device},${toString config.host.serial.baud}n8"
+        "console=${config.headless.serial.device},${toString config.headless.serial.baud}n8"
       ];
       loader.grub.extraConfig = "
-        serial --speed=${toString config.host.serial.baud} --unit=0 --word=8 --parity=no --stop=1
+        serial --speed=${toString config.headless.serial.baud} --unit=0 --word=8 --parity=no --stop=1
         terminal_input serial
         terminal_output serial
       ";
     };
 
     # enable sshd
-    services.openssh = lib.mkIf config.host.ssh {
+    services.openssh = lib.mkIf config.headless.ssh {
       enable = true;
       passwordAuthentication = false;
       permitRootLogin = lib.mkDefault "prohibit-password";

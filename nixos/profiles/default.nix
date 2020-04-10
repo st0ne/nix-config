@@ -6,6 +6,13 @@ with lib;
 let
   us = "en_US.UTF-8";
   de = "de_DE.UTF-8";
+  # cloudflare
+  fallbackDns = [
+    "1.1.1.1"
+    "1.0.0.1"
+    "2606:4700:4700::1111"
+    "2606:4700:4700::1001"
+  ];
 in
   {
     # custom option declaration
@@ -104,6 +111,12 @@ in
     # hostname
     networking.hostName = config.custom.hostname;
     networking.domain = config.custom.domain;
+
+    # systemd-resolved
+    services.resolved = {
+      enable = lib.mkDefault true;
+      inherit fallbackDns;
+    };
 
     # vim as default editor
     programs.vim.defaultEditor = true;

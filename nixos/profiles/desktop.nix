@@ -5,8 +5,9 @@
 
   {
   imports = [
-    ./default.nix # parent
+    ./. # parent
     ./pkgs/desktop.nix
+    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../../nixos/configs/networking/network-manager.nix
   ];
 

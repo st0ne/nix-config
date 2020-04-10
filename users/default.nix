@@ -26,7 +26,7 @@ in
     # add user data path for persistent storage
     dataSetup = {
       text = ''
-        _DATA=$HOME/Data
+        _DATA=$HOME/data
 
         if [ ! -L $_DATA ]
         then
@@ -34,7 +34,7 @@ in
           then
             mv $_DATA $\{_DATA}_bak
           fi
-          ln -sn /Data/users/$USER $_DATA
+          ln -sn /data/users/$USER $_DATA
         fi
       '';
       deps = [];

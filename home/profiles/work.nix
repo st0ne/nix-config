@@ -6,6 +6,7 @@ let
   ];
   workPkgs = with pkgs; [
     zoom-us
+    flashrom
   ];
 in
 {

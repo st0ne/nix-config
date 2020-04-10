@@ -9,7 +9,6 @@
 
 {
   imports = [
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # profile
     ../../../nixos/profiles/laptop.nix
     ../../../nixos/profiles/fstab/zfs.nix
