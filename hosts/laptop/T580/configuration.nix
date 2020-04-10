@@ -9,9 +9,8 @@
 
 {
   imports = [
-    # profile
-    ../../../nixos/profiles/laptop.nix
-    ../../../nixos/profiles/fstab/zfs.nix
+    # profiles
+    ../../../nixos/profiles
     # configs
     ../../../nixos/configs/hardware/cpu/intel
     ../../../nixos/configs/hardware/gpu/intel/vaapi.nix
@@ -29,30 +28,30 @@
     ../../../users/sylv/configuration.nix
   ];
 
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   ### GENERAL ##################################################################
-  custom.hostname = "T580";
-  custom.boot.efi = true;
-  custom.boot.device = "/dev/nvme0n1p1";
-  networking.hostId= "13dead37";
-
-  system.stateVersion = "19.09";
-  nix.maxJobs = 8;
-
-  ### INIT #####################################################################
-  boot = {
-    initrd.luks.devices."${config.custom.hostname}" = {
-      device = "/dev/nvme0n1p2";
-      keyFile = "/keyfile.bin";
-      allowDiscards = true;
-    };
-    loader = {
-      grub = {
-        extraInitrd = "/boot/initrd.keys.gz";
-        enableCryptodisk = true;
-        zfsSupport = true;
+  hostname = "T580";
+  bootloader = {
+    enable = true;
+    efi = true;
+    device = "/dev/nvme0n1p1";
+  };
+  profiles = {
+    laptop.enable = true;
+    fstab = {
+      zfs.enable = true;
+      luks = {
+        enable = true;
+        device = "/dev/nvme0n1p2";
       };
     };
   };
+  networking.hostId= "13dead37";
+
+  system.stateVersion = "20.03";
+  nix.maxJobs = 8;
 
   ### USER #####################################################################
   users.users.sylv.extraGroups = [

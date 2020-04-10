@@ -2,11 +2,16 @@
 
 let
   desktopConfigs = [
+    ../configs/termite.nix
   ];
   desktopPkgs = with pkgs; [
+    discord
+    firefox
+    qutebrowser
+    signal-desktop
+    slack
     spotify
     thunderbird
-    discord
   ];
 in
 {

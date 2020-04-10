@@ -1,136 +1,133 @@
 { config, lib, pkgs, ... }:
 
-# default definition of any host
-
 with lib;
+
 let
+
+  consoleFont = "Lat2-Terminus16";
+
   us = "en_US.UTF-8";
   de = "de_DE.UTF-8";
-  # cloudflare
-  fallbackDns = [
-    "1.1.1.1"
-    "1.0.0.1"
-    "2606:4700:4700::1111"
-    "2606:4700:4700::1001"
-  ];
-in
-  {
-    # custom option declaration
-    options.custom = {
-      hostname = mkOption {
-        type = types.str;
-        default = "defaulthost";
-        description = ''
-          name of the host
-        '';
-      };
-      domain = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          domain name
-        '';
-      };
-      boot = {
-        efi = mkOption {
-          type = types.bool;
-          default = false;
-          description = ''
-            enable efi boot
-          '';
-        };
-        device = mkOption {
-          type = types.str;
-          default= null;
-          description = ''
-            legacy: grub device
-            efi: efi partition
-          '';
-        };
-      };
-    };
 
-  # import custom config
+in
+
+{
   imports = [
     ./pkgs
-  ];
+  ] ++ import ./profile-list.nix;
+
+  # custom toplevel options
+  options = {
+    hostname = mkOption {
+      type = types.str;
+      default = "nixos";
+      description = ''
+        name of the host
+      '';
+    };
+    domain = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = ''
+        domain name
+      '';
+    };
+    bootloader = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          enable bootloader
+        '';
+      };
+      efi = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          enable efi boot
+        '';
+      };
+      device = mkOption {
+        type = types.str;
+        default= null;
+        description = ''
+          legacy: grub device
+          efi: efi partition
+        '';
+      };
+    };
+  };
 
   config = {
     boot = {
-      kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-      cleanTmpDir = lib.mkDefault true;
-      tmpOnTmpfs = lib.mkDefault true;
+      kernelPackages = mkDefault pkgs.linuxPackages;
+      cleanTmpDir = mkDefault true;
+      tmpOnTmpfs = mkDefault true;
       kernelParams = [
         # old ifnames (e.g. eth0, wlan0)
         "net.ifnames=0"
       ];
       loader = {
         efi = {
-          canTouchEfiVariables = lib.mkDefault false;
+          canTouchEfiVariables = mkDefault false;
           # I prefer a separated efi patition
           efiSysMountPoint = "/efi";
         };
         # define grub2 as default bootloader
         grub = {
-          enable = lib.mkDefault true;
+          enable = config.bootloader.enable;
           version = 2;
-          device = if config.custom.boot.efi then "nodev" else config.custom.boot.device;
-          efiSupport = config.custom.boot.efi;
-          efiInstallAsRemovable = lib.mkDefault true;
+          device = if config.bootloader.efi then "nodev" else config.bootloader.device;
+          efiSupport = config.bootloader.efi;
+          efiInstallAsRemovable = mkDefault ( if (config.bootloader.enable && config.bootloader.efi) then true else false ) ;
         };
       };
     };
-    fileSystems."/efi" = lib.mkIf config.custom.boot.efi {
-      device = config.custom.boot.device;
+    fileSystems."/efi" = mkIf (config.bootloader.enable && config.bootloader.efi) {
+      device = config.bootloader.device;
       fsType = "vfat";
     };
 
     # locale & console
     i18n = {
-      consoleFont = lib.mkDefault "Lat2-Terminus16";
-      consoleKeyMap = lib.mkDefault "us";
-      defaultLocale = lib.mkDefault us;
+      consoleFont = mkDefault consoleFont;
+      consoleKeyMap = mkDefault "us";
+      defaultLocale = mkDefault us;
       extraLocaleSettings = {
-        LC_ADDRESS = lib.mkDefault de;
-        LC_COLLATE = lib.mkDefault de;
-        LC_IDENTIFICATION = lib.mkDefault de;
-        LC_MONETARY = lib.mkDefault de;
-        LC_MESSAGES = lib.mkDefault us;
-        LC_MEASUREMENT = lib.mkDefault de;
-        LC_NAME = lib.mkDefault de;
-        LC_NUMERIC = lib.mkDefault de;
-        LC_PAPER = lib.mkDefault de;
-        LC_TELEPHONE = lib.mkDefault de;
-        LC_TIME = lib.mkDefault de;
+        LC_ADDRESS = mkDefault de;
+        LC_COLLATE = mkDefault de;
+        LC_IDENTIFICATION = mkDefault de;
+        LC_MONETARY = mkDefault de;
+        LC_MESSAGES = mkDefault us;
+        LC_MEASUREMENT = mkDefault de;
+        LC_NAME = mkDefault de;
+        LC_NUMERIC = mkDefault de;
+        LC_PAPER = mkDefault de;
+        LC_TELEPHONE = mkDefault de;
+        LC_TIME = mkDefault de;
       };
     };
 
     # timezone
-    time.timeZone = lib.mkDefault "Europe/Berlin";
+    time.timeZone = mkDefault "Europe/Berlin";
 
     # hostname
-    networking.hostName = config.custom.hostname;
-    networking.domain = config.custom.domain;
-
-    # systemd-resolved
-    services.resolved = {
-      enable = lib.mkDefault true;
-      inherit fallbackDns;
-    };
+    networking.hostName = config.hostname;
+    networking.domain = config.domain;
 
     # vim as default editor
-    programs.vim.defaultEditor = true;
+    programs.vim.defaultEditor = mkDefault true;
 
     # allow ping
-    networking.firewall.allowPing = true;
+    networking.firewall.allowPing = mkDefault  true;
     # disable annoying network logs
-    networking.firewall.logRefusedConnections = false;
+    networking.firewall.logRefusedConnections = mkDefault false;
 
     location = {
       # hard code geolocation for redshift
       # welcome to Bochum :)
-      latitude = lib.mkDefault 51.48;
-      longitude = lib.mkDefault 7.22;
+      latitude = mkDefault 51.48;
+      longitude = mkDefault 7.22;
     };
   };
 }
