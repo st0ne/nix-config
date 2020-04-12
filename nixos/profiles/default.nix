@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, options, lib, pkgs, ... }:
 
 with lib;
 
 let
+
+  nix-config = let top = ../..; in "nix-config=${toString top}";
 
   consoleFont = "Lat2-Terminus16";
 
@@ -23,13 +25,6 @@ in
       default = "nixos";
       description = ''
         name of the host
-      '';
-    };
-    domain = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      description = ''
-        domain name
       '';
     };
     bootloader = {
@@ -59,6 +54,10 @@ in
   };
 
   config = {
+
+    # append this repository to NIX_PATH
+    nix.nixPath = options.nix.nixPath.default ++ [ nix-config ];
+
     boot = {
       kernelPackages = mkDefault pkgs.linuxPackages;
       cleanTmpDir = mkDefault true;
@@ -113,7 +112,6 @@ in
 
     # hostname
     networking.hostName = config.hostname;
-    networking.domain = config.domain;
 
     # vim as default editor
     programs.vim.defaultEditor = mkDefault true;
