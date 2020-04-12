@@ -48,7 +48,6 @@
       };
     };
   };
-  networking.hostId= "13dead37";
 
   system.stateVersion = "20.03";
   nix.maxJobs = 8;

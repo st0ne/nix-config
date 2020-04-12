@@ -6,6 +6,9 @@ let
 
   cfg = config.profiles.fstab.zfs;
 
+  # generate hostId based on string
+  hostIdGen = str: builtins.substring 0 8 (builtins.hashString "md5" str);
+
 in
 
 {
@@ -23,6 +26,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    # generate hostId based on hostname.
+    networking.hostId= hostIdGen config.networking.hostName;
     boot.supportedFilesystems = ["zfs"];
     fileSystems."/" =
       { device = "${cfg.zpool}/root/nixos";

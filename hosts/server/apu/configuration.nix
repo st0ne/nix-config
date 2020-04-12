@@ -25,6 +25,7 @@ in
     efi = false;
     device = "/dev/sda";
   };
+
   profiles = {
     headless = {
       enable = true;
@@ -36,7 +37,6 @@ in
     };
     fstab.zfs.enable = true;
   };
-  networking.hostId= "deadc0de";
 
   system.stateVersion = "20.03";
   nix.maxJobs = 4;
