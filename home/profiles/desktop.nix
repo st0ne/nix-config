@@ -12,6 +12,7 @@ let
     slack
     spotify
     thunderbird
+    zathura
   ];
 in
 {

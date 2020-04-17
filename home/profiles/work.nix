@@ -5,8 +5,9 @@ let
     ../configs/go.nix
   ];
   workPkgs = with pkgs; [
-    zoom-us
+    chromium
     flashrom
+    zoom-us
   ];
 in
 {

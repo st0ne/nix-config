@@ -75,6 +75,7 @@ in
     systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
     services.avahi = lib.mkIf (cfg.ssh.enable && cfg.ssh.avahi) {
       enable = true;
+      ipv6 = true;
       publish = {
         enable = true;
         addresses = true;
