@@ -88,9 +88,11 @@ in
     };
 
     # locale & console
+    console = {
+      font = mkDefault consoleFont;
+      keyMap = mkDefault "us";
+    };
     i18n = {
-      consoleFont = mkDefault consoleFont;
-      consoleKeyMap = mkDefault "us";
       defaultLocale = mkDefault us;
       extraLocaleSettings = {
         LC_ADDRESS = mkDefault de;

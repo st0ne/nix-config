@@ -40,6 +40,4 @@ in
 
   system.stateVersion = "20.03";
   nix.maxJobs = 4;
-
-  users.users.root.openssh.authorizedKeys.keys = creds.authorizedKeys;
 }

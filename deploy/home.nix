@@ -1,6 +1,10 @@
 let
   secrets = import ./home_crypt.nix;
   ncDomain = secrets.apu.services.nextcloud.domain;
+  configKeys = let
+    keys = (import ../users/sylv/secrets/creds.nix {}).authorizedKeys;
+  in
+  { users.users.root.openssh.authorizedKeys.keys = keys; };
 in
 {
   defaults = {
@@ -12,28 +16,20 @@ in
     enableRollback = false;
   };
 
-  apu = { lib, ... }:
+  apu = { ... }:
   {
-    # base config
     imports = [
-      # configuration
       ../hosts/server/apu/configuration.nix
-      # nextcloud
       ./services/nginx-nextcloud.nix
     ];
     networking = secrets.apu.networking;
-    #containers.nextcloud = import ../nixos/containers/nixos/nginx-nextcloud.nix  {setup = secrets.apu.services.nextcloud; } //
-    #{
-    #  autoStart = true;
-    #  # BUG:
-    #  config.security.acme.email = lib.mkForce "sylv@sylv.io";
-    #  config.security.acme.acceptTerms = lib.mkForce true;
-    #  config.security.acme.certs."${ncDomain}".webroot = lib.mkForce null;
-    #};
+  } // configKeys;
 
-    docker-containers = {
-      #nextcloud-app = import ../nixos/containers/docker/nextcloud/app.nix { setup = secrets.apu.services.nextcloud; };
-      #nextcloud-db = import ../nixos/containers/docker/nextcloud/db.nix { setup = secrets.apu.services.nextcloud; };
-    };
-  };
+  mini = { ... }:
+  {
+    imports = [
+      ../hosts/desktop/mini/configuration.nix
+    ];
+    networking = secrets.mini.networking;
+  } // configKeys;
 }
