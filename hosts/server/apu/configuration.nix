@@ -19,7 +19,7 @@ in
 
   ### GENERAL ##################################################################
 
-  hostname = "apu";
+  hostname = lib.mkDefault "apu";
   bootloader = {
     enable = true;
     efi = false;

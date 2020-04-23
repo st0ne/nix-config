@@ -7,6 +7,7 @@ let
   workPkgs = with pkgs; [
     chromium
     flashrom
+    vscode
     zoom-us
   ];
 in

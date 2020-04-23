@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   imports = [
     ../../../home/profiles/desktop.nix
@@ -8,5 +7,8 @@
     ../../../home/profiles/ctf.nix
     ../../../home/configs/sway.nix
     ../../../home/configs/go.nix
+  ];
+  home.packages = [
+    pkgs.nix-config-shell
   ];
 }

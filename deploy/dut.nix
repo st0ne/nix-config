@@ -1,6 +1,5 @@
 let
-  secrets = import ./home_crypt.nix;
-  ncDomain = secrets.services.nextcloud.domain;
+  secrets = import ./dut_crypt.nix;
   configKeys = let
     keys = (import ../users/sylv/secrets/creds.nix {}).authorizedKeys;
   in
@@ -16,20 +15,11 @@ in
     enableRollback = false;
   };
 
-  apu = { ... }:
+  fuzzer = { ... }:
   {
     imports = [
       ../hosts/server/apu/configuration.nix
     ];
-    networking = secrets.hosts.apu.networking;
-  } // configKeys;
-
-  mini = { ... }:
-  {
-    imports = [
-      ../hosts/desktop/mini/configuration.nix
-      ./services/nginx-nextcloud.nix
-    ];
-    networking = secrets.hosts.mini.networking;
-  } // configKeys;
+    networking = secrets.hosts.fuzzer.networking;
+  } // {hostname = "syssec-fuzzer";} // configKeys;
 }

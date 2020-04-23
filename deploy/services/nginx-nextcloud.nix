@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  setup = (import ../home_crypt.nix).apu.services.nextcloud;
+  setup = (import ../home_crypt.nix).services.nextcloud;
   domain = setup.domain;
   dnsProvider = setup.dnsProvider;
   app = {

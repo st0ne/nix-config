@@ -3,8 +3,9 @@
 with lib;
 
 let
-
-  nix-config = let top = ../..; in "nix-config=${toString top}";
+  top = ../..;
+  nix-config = "nix-config=${toString top}";
+  nixpkgs-overlays = "nixpkgs-overlays=${toString (top + "/overlays")}";
 
   consoleFont = "Lat2-Terminus16";
 
@@ -51,12 +52,19 @@ in
         '';
       };
     };
+    deployed = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        host will be deployed with nixops
+        '';
+    };
   };
 
   config = {
 
-    # append this repository to NIX_PATH
-    nix.nixPath = options.nix.nixPath.default ++ [ nix-config ];
+    # append this repository and overlays to NIX_PATH
+    nix.nixPath = options.nix.nixPath.default ++ optionals (!config.deployed) [ nixpkgs-overlays nix-config ];
 
     boot = {
       kernelPackages = mkDefault pkgs.linuxPackages;

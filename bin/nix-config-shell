@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+
+#ref: https://github.com/NixOS/nix/issues/2208
+ 
+[ "$#" -eq 0 ] && echo "run: $0 <shell> (args)" && exit 1
+NAME=$1
+shift 1
+
+
+NIX_CONFIG_TOP=`echo $NIX_PATH |sed -nr '/nix-config=/ s/.*nix-config=([^"]+).*/\1/p'`
+[ -z $NIX_CONFIG_TOP ] && echo "Error: nix-config not defined in NIX_PATH" && exit 1
+
+SHELLS_TOP=${NIX_CONFIG_TOP}/shells
+SHELL_EXPR=${SHELLS_TOP}/${NAME}.nix
+[ ! -e $SHELL_EXPR ] && echo "Error: shell $SHELL_EXPR not found" && exit 1
+
+mkdir -p ${SHELLS_TOP}/.gcroots
+nix-instantiate ${SHELL_EXPR} --indirect --add-root $SHELLS_TOP/.gcroots/${NAME}.drv
+
+exec nix-shell $(readlink $SHELLS_TOP/.gcroots/${NAME}.drv) "$@"
