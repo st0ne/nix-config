@@ -13,7 +13,7 @@ let
     gnatboot = gnat9;
   });
 
-  pyPkgs = pythonPackages;
+  pyPkgs = python3Packages;
 in
 
 {
@@ -23,6 +23,8 @@ in
       ''
       # prompt
       export PS1="\n\[\033[1;33m\][coreboot:\w]\$\[\033[0m\] "
+      # prevent checkout of forked blobs submodule
+      export UPDATED_SUBMODULES=1
 
       '';
     buildInputs = [

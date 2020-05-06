@@ -1,27 +1,27 @@
 { config, lib, pkgs, ... }:
+
 let
+
   setup = (import ../home_crypt.nix).services.nextcloud;
   domain = setup.domain;
   dnsProvider = setup.dnsProvider;
+  extraTrustedDomains = setup.extraTrustedDomains;
   app = {
-    adminpassFile = "";
+    adminpassFile = setup.nextcloud.adminpassFile;
   };
   db = {
     name = setup.postgres.name;
     user = setup.postgres.user;
     pass = setup.postgres.pass;
   };
+
 in
+
 {
-  security.acme = {
-    acceptTerms = true;
-    certs."${domain}" = rec {
-      inherit dnsProvider;
-      email = "sylv@sylv.io";
-      webroot = lib.mkForce null;
-      credentialsFile  = /data/host/acme + "/${domain}-${dnsProvider}-api-token";
-    };
-  };
+  assertions = let ncfg = config.services.nginx; in [{
+      assertion = (ncfg.recommendedGzipSettings && ncfg.recommendedProxySettings);
+      message = "Please enable nginx recommended gzip and proxy settings";
+  }];
 
   services.nextcloud = {
     enable = true;
@@ -31,6 +31,7 @@ in
     nginx.enable = true;
     autoUpdateApps.enable = true;
     config = {
+      inherit extraTrustedDomains;
       adminpassFile = app.adminpassFile;
       dbtype = "pgsql";
       dbname = db.name;
@@ -50,14 +51,6 @@ in
   };
 
   services.nginx = {
-    enable = true;
-    # only recommendedProxySettings and recommendedGzipSettings are strictly required,
-    # but the rest make sense as well
-    recommendedTlsSettings = true;
-    recommendedOptimisation = true;
-    recommendedGzipSettings = true;
-    recommendedProxySettings = true;
-
     appendHttpConfig = ''
       ### redirect www subdomain
       server {
@@ -78,6 +71,7 @@ in
       extraConfig = ''
       add_header Strict-Transport-Security "max-age=31536000" always;
       '';
+      serverAliases = extraTrustedDomains;
     };
   };
 

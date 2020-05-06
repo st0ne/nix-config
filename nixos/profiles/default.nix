@@ -123,6 +123,9 @@ in
     # hostname
     networking.hostName = config.hostname;
 
+    # unmutable users
+    users.mutableUsers = mkDefault false;
+
     # vim as default editor
     programs.vim.defaultEditor = mkDefault true;
 

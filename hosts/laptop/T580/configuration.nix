@@ -25,11 +25,13 @@
     ../../../nixos/overrides/no-nvidia.nix
     ../../../nixos/overrides/HiDPI.nix
     # users
-    ../../../users/sylv/configuration.nix
+    ../../../users/sylv
   ];
 
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  services.resolved.dnssec = "false";
+  nix.trustedUsers = ["sylv"];
 
   ### GENERAL ##################################################################
   hostname = "T580";

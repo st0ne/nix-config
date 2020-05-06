@@ -1,12 +1,5 @@
 { config, lib, pkgs, ... }:
 
-let
-
-  creds = import ../../../users/sylv/secrets/creds.nix {};
-
-in
-
-
 {
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>

@@ -1,7 +1,7 @@
 let
   secrets = import ./dut_crypt.nix;
   configKeys = let
-    keys = (import ../users/sylv/secrets/creds.nix {}).authorizedKeys;
+    keys = (import ../users/sylv/secrets/creds.nix).authorizedKeys;
   in
   { users.users.root.openssh.authorizedKeys.keys = keys; };
 in
@@ -11,15 +11,43 @@ in
   };
 
   network = {
-    description = "home server setup";
+    description = "Device Under Test network setup";
     enableRollback = false;
   };
 
-  fuzzer = { ... }:
+  fuzzer = { pkgs, ... }:
+  configKeys //
   {
     imports = [
       ../hosts/server/apu/configuration.nix
+      ../users/sylv
+      ../users/syssec
     ];
+
     networking = secrets.hosts.fuzzer.networking;
-  } // {hostname = "syssec-fuzzer";} // configKeys;
+
+    hostname = "syssec-fuzzer";
+    users.users.syssec.extraGroups = [
+      "dialout"
+      "jlink"
+    ];
+    environment.interactiveShellInit  = ''
+      export PATH=$HOME/bin:$PATH
+      '';
+    users.motd = secrets.fuzzerMotd;
+    users.groups."jlink" = {};
+    services.udev.extraRules = ''
+      # SEGGER J-Link PLUS
+      SUBSYSTEM=="usb", ATTR{idVendor}=="1366", ATTR{idProduct}=="0101", MODE="0660", GROUP="jlink"
+    '';
+    services.avahi = {
+      enable = true;
+      nssmdns = true;
+      ipv6 = true;
+    };
+    environment.systemPackages = with pkgs; [
+      (python3.withPackages (ps: with ps; [ python3Packages.gpiozero python3Packages.pigpio]))
+      jlink
+    ];
+  };
 }

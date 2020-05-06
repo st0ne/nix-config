@@ -32,9 +32,9 @@ in
         then
           if [ -e $_DATA ]
           then
-            mv $_DATA $\{_DATA}_bak
+            mv $_DATA $HOME/old_data
           fi
-          ln -sn /data/users/$USER $_DATA
+          ln -sn /data/user/$USER $_DATA
         fi
       '';
       deps = [];

@@ -3,12 +3,15 @@ self: super: {
   # rel: https://github.com/NixOS/nixpkgs/issues/18185
   python3 = super.python3.override {
     packageOverrides = python-self: python-super: {
-      sphinxcontrib-ditaa = self.pythonPackages.callPackage ../pkgs/development/python-modules/sphinxcontrib-ditaa { };
+      colorzero =  self.python3Packages.callPackage ../pkgs/development/python-modules/colorzero { };
+      gpiozero = self.python3Packages.callPackage ../pkgs/development/python-modules/gpiozero { };
+      sphinxcontrib-ditaa = self.python3Packages.callPackage ../pkgs/development/python-modules/sphinxcontrib-ditaa { };
       stem = python-super.watchdog.overrideAttrs (old: rec {
         meta.broken = false;
       });
-      sphinx-autobuild = self.pythonPackages.callPackage ../pkgs/development/python-modules/sphinx-autobuild { };
-      port-for = self.pythonPackages.callPackage ../pkgs/development/python-modules/port-for { };
+      sphinx-autobuild = self.python3Packages.callPackage ../pkgs/development/python-modules/sphinx-autobuild { };
+      pigpio = self.python3Packages.callPackage ../pkgs/development/python-modules/pigpio { };
+      port-for = self.python3Packages.callPackage ../pkgs/development/python-modules/port-for { };
       watchdog = python-super.watchdog.overrideAttrs (old: rec {
         pname = old.pname;
         version = "0.10.2";

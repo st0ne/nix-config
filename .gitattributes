@@ -1,4 +1,5 @@
 secrets/** filter=git-crypt diff=git-crypt
+deploy/dashboard/** filter=git-crypt diff=git-crypt
 **/secrets/* filter=git-crypt diff=git-crypt
 *_crypt.nix filter=git-crypt diff=git-crypt
 secrets.nix filter=git-crypt diff=git-crypt
