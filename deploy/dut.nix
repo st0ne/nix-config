@@ -1,9 +1,6 @@
 let
   secrets = import ./dut_crypt.nix;
-  configKeys = let
-    keys = (import ../users/sylv/secrets/creds.nix).authorizedKeys;
-  in
-  { users.users.root.openssh.authorizedKeys.keys = keys; };
+  keys = (import ../users/sylv/secrets/creds.nix).authorizedKeys;
 in
 {
   defaults = {
@@ -16,7 +13,6 @@ in
   };
 
   fuzzer = { pkgs, ... }:
-  configKeys //
   {
     imports = [
       ../hosts/server/apu/configuration.nix
@@ -31,6 +27,7 @@ in
       "dialout"
       "jlink"
     ];
+    users.users.root.openssh.authorizedKeys.keys = keys;
     environment.interactiveShellInit  = ''
       export PATH=$HOME/bin:$PATH
       '';

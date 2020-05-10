@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  creds = import ../../users/sylv/secrets/creds.nix {};
+  creds = import ../../users/sylv/secrets/creds.nix;
 in
 {
   programs.git = {

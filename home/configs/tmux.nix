@@ -68,6 +68,9 @@ in
       newSession = true;
       extraConfig = ''
         set-option -g status-position top
+        set-option -g default-terminal "screen-256color"
+        set-option -sa terminal-overrides ',xterm-termite:RGB'
+        set-option -sg escape-time 10
         ${gruvboxTheme}
         '';
     };

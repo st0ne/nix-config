@@ -5,7 +5,7 @@ let
     ../configs/bash.nix
     ../configs/git.nix
     ../configs/tmux.nix
-    ../configs/vim.nix
+    ../configs/neovim.nix
   ];
   basePkgs = with pkgs; [
     dfc
