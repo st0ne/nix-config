@@ -14,7 +14,7 @@ in
     ../../../modules/hardware/cpu/amd/default.nix
     # users
     ../../../users/sylv
-    ];
+  ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "sd_mod" "sdhci_pci" ];
 
@@ -40,23 +40,20 @@ in
   networking = {
     useDHCP = false;
     dhcpcd.extraConfig =
-    ''
-    # disable IPv6
-    noipv6
+      ''
+        # disable IPv6
+        noipv6
 
-    # prioritize lan_private interface
-    interface wan
-    metric 999
-    interface lan_private
-    metric 137
-    '';
+        # prioritize lan_private interface
+        interface wan
+        metric 999
+        interface lan_private
+        metric 137
+      '';
     interfaces = {
-      eth0 = {
-      };
-      eth1 = {
-      };
-      eth2 = {
-      };
+      eth0 = {};
+      eth1 = {};
+      eth2 = {};
       wan = {
         useDHCP = true;
       };

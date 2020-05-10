@@ -18,10 +18,15 @@ let
 in
 
 {
-  assertions = let ncfg = config.services.nginx; in [{
-      assertion = (ncfg.recommendedGzipSettings && ncfg.recommendedProxySettings);
-      message = "Please enable nginx recommended gzip and proxy settings";
-  }];
+  assertions = let
+    ncfg = config.services.nginx;
+  in
+    [
+      {
+        assertion = (ncfg.recommendedGzipSettings && ncfg.recommendedProxySettings);
+        message = "Please enable nginx recommended gzip and proxy settings";
+      }
+    ];
 
   services.nextcloud = {
     enable = true;
@@ -69,7 +74,7 @@ in
       # security
       # ref: https://docs.nextcloud.com/server/15/admin_manual/installation/harden_server.html
       extraConfig = ''
-      add_header Strict-Transport-Security "max-age=31536000" always;
+        add_header Strict-Transport-Security "max-age=31536000" always;
       '';
       serverAliases = extraTrustedDomains;
     };
@@ -77,7 +82,7 @@ in
 
   # ensure that postgres is running *before* running the setup
   systemd.services."nextcloud-setup" = {
-    requires = ["postgresql.service"];
-    after = ["postgresql.service"];
+    requires = [ "postgresql.service" ];
+    after = [ "postgresql.service" ];
   };
 }

@@ -22,7 +22,8 @@ let
     fi
   '';
 
-in {
+in
+{
 
   home.packages = with pkgs; [
     sway

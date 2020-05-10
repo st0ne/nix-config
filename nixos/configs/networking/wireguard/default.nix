@@ -2,7 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    wireguard wireguard-tools
+    wireguard
+    wireguard-tools
   ];
   networking.wireguard.enable = true;
 }

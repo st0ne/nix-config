@@ -1,6 +1,6 @@
 self: super: {
   # similar to 'writeShellScriptBin' but with args parsing
-  writeShellScriptBinArgs = name : text :
+  writeShellScriptBinArgs = name: text:
     super.writeTextFile {
       inherit name;
       executable = true;
@@ -8,7 +8,7 @@ self: super: {
       text = ''
         #!${super.runtimeShell}
         ${text} "$@"
-        '';
+      '';
       checkPhase = ''
         ${super.stdenv.shell} -n $out/bin/${name}
       '';

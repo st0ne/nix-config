@@ -18,7 +18,7 @@ let
   defaultFonts = {
     monospace = [ "Hack" ];
     sansSerif = [ "DejaVu Sans" ];
-    serif     = [ "DejaVu" ];
+    serif = [ "DejaVu" ];
   };
 
   logSize = "500M";

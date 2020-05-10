@@ -1,4 +1,4 @@
-{ config , lib, ... }:
+{ config, lib, ... }:
 
 with lib;
 
@@ -27,15 +27,17 @@ in
 
   config = mkIf cfg.enable {
     # generate hostId based on hostname.
-    networking.hostId= hostIdGen config.networking.hostName;
-    boot.supportedFilesystems = ["zfs"];
+    networking.hostId = hostIdGen config.networking.hostName;
+    boot.supportedFilesystems = [ "zfs" ];
     fileSystems."/" =
-      { device = "${cfg.zpool}/root/nixos";
+      {
+        device = "${cfg.zpool}/root/nixos";
         fsType = "zfs";
       };
 
     fileSystems."/data" =
-      { device = "${cfg.zpool}/data";
+      {
+        device = "${cfg.zpool}/data";
         fsType = "zfs";
       };
   };

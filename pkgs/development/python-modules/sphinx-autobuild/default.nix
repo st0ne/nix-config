@@ -1,5 +1,12 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, argh, livereload, sphinx, port-for, pyyaml, watchdog
+{ stdenv
+, buildPythonPackage
+, fetchPypi
+, argh
+, livereload
+, sphinx
+, port-for
+, pyyaml
+, watchdog
 }:
 
 buildPythonPackage rec {

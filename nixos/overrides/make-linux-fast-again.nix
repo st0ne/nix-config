@@ -4,6 +4,7 @@ let
   cmdline = builtins.readFile (
     builtins.fetchurl "https://make-linux-fast-again.com"
   );
-in {
+in
+{
   boot.kernelParams = pkgs.lib.splitString " " cmdline;
 }

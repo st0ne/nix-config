@@ -45,7 +45,7 @@ in
       };
       device = mkOption {
         type = types.str;
-        default= null;
+        default = null;
         description = ''
           legacy: grub device
           efi: efi partition
@@ -57,7 +57,7 @@ in
       default = false;
       description = ''
         host will be deployed with nixops
-        '';
+      '';
     };
   };
 
@@ -86,7 +86,7 @@ in
           version = 2;
           device = if config.bootloader.efi then "nodev" else config.bootloader.device;
           efiSupport = config.bootloader.efi;
-          efiInstallAsRemovable = mkDefault ( if (config.bootloader.enable && config.bootloader.efi) then true else false ) ;
+          efiInstallAsRemovable = mkDefault (if (config.bootloader.enable && config.bootloader.efi) then true else false);
         };
       };
     };
@@ -130,7 +130,7 @@ in
     programs.vim.defaultEditor = mkDefault true;
 
     # allow ping
-    networking.firewall.allowPing = mkDefault  true;
+    networking.firewall.allowPing = mkDefault true;
     # disable annoying network logs
     networking.firewall.logRefusedConnections = mkDefault false;
 

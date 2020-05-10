@@ -3,9 +3,9 @@
 
 {
   imports = [
-  <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
-  # profile
-  ../../../nixos/profiles
+    <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
+    # profile
+    ../../../nixos/profiles
   ];
 
   ### INIT #####################################################################

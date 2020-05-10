@@ -28,26 +28,26 @@
         fi
       '';
       extraPackages = with pkgs; [
-      # app launcher
-      dmenu
-      j4-dmenu-desktop
+        # app launcher
+        dmenu
+        j4-dmenu-desktop
 
-      light
-      acpi
+        light
+        acpi
 
-      alsaLib
-      libpulseaudio
-      mpd_clientlib
+        alsaLib
+        libpulseaudio
+        mpd_clientlib
 
-      # misc bars
-      i3lock
-      i3status
-      i3blocks
-    ];
-  };
+        # misc bars
+        i3lock
+        i3status
+        i3blocks
+      ];
+    };
     # standalone compositor
     # a must have if your use the modesettig driver for xorg
-    compton  = {
+    compton = {
       enable = lib.mkDefault true;
       backend = lib.mkDefault "glx";
     };

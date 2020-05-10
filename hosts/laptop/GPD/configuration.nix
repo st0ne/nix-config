@@ -3,22 +3,22 @@
 {
   imports =
     [
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
-    # profile
-    ../../../nixos/profiles/laptop.nix
-    ../../../nixos/profiles/fstab/zfs.nix
-    # modules
-    ../../../nixos/configs/hardware/cpu/intel
-    ../../../nixos/configs/hardware/gpu/intel/vaapi.nix
-    ../../../nixos/configs/hardware/vendor/GPD
-    ../../../nixos/configs/hardware/devices/yubikey.nix
-    ../../../nixos/configs/hardware/devices/pcscd.nix
-    ../../../nixos/configs/networking/wireguard/mullvad.nix
-    ../../../nixos/configs/wayland/sway.nix
-    ../../../nixos/configs/virtualisation/libvirtd.nix
-    # users
-    ../../../users/sylv/configuration.nix
-  ];
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+      # profile
+      ../../../nixos/profiles/laptop.nix
+      ../../../nixos/profiles/fstab/zfs.nix
+      # modules
+      ../../../nixos/configs/hardware/cpu/intel
+      ../../../nixos/configs/hardware/gpu/intel/vaapi.nix
+      ../../../nixos/configs/hardware/vendor/GPD
+      ../../../nixos/configs/hardware/devices/yubikey.nix
+      ../../../nixos/configs/hardware/devices/pcscd.nix
+      ../../../nixos/configs/networking/wireguard/mullvad.nix
+      ../../../nixos/configs/wayland/sway.nix
+      ../../../nixos/configs/virtualisation/libvirtd.nix
+      # users
+      ../../../users/sylv/configuration.nix
+    ];
 
   ### GENERAL ##################################################################
   custom.hostname = "GPD";

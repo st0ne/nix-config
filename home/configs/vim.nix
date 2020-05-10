@@ -10,7 +10,7 @@ let
     noremap  <Right> <NOP>
     " }}}
   '';
-  setupBasic =''
+  setupBasic = ''
     " General {{{
     " enter the current millenium
     set nocompatible
@@ -398,9 +398,17 @@ in
       # syntax
       vim-nix
       # UI
-      vim-airline vim-airline-themes nerdtree Tagbar
+      vim-airline
+      vim-airline-themes
+      nerdtree
+      Tagbar
       # misc
-      ale gitgutter vim-fugitive vim-go neocomplete ctrlp
+      ale
+      gitgutter
+      vim-fugitive
+      vim-go
+      neocomplete
+      ctrlp
     ];
     extraConfig = ''
       ${learningMode}
@@ -409,8 +417,12 @@ in
     '';
   };
   home.packages = with pkgs; [
-    python37Packages.powerline ctags
-    gotags gotools golangci-lint go-langserver
+    python37Packages.powerline
+    ctags
+    gotags
+    gotools
+    golangci-lint
+    go-langserver
   ];
 }
 #  vim:foldmethod=marker:foldlevel=0

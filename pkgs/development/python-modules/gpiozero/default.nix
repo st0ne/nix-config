@@ -1,5 +1,8 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, colorzero }:
+{ stdenv
+, buildPythonPackage
+, fetchPypi
+, colorzero
+}:
 
 buildPythonPackage rec {
   version = "1.5.1";

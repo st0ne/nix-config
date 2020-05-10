@@ -55,24 +55,24 @@ let
   '';
 in
 
-  {
-    programs.tmux = {
-      enable = true;
-      aggressiveResize = true;
-      baseIndex = 1;
-      clock24 = true;
-      customPaneNavigationAndResize = true;
-      disableConfirmationPrompt = true;
-      historyLimit = 10000;
-      keyMode = "vi";
-      newSession = true;
-      extraConfig = ''
-        set-option -g status-position top
-        set-option -g default-terminal "screen-256color"
-        set-option -sa terminal-overrides ',xterm-termite:RGB'
-        set-option -sg escape-time 10
-        ${gruvboxTheme}
-        '';
-    };
-  }
+{
+  programs.tmux = {
+    enable = true;
+    aggressiveResize = true;
+    baseIndex = 1;
+    clock24 = true;
+    customPaneNavigationAndResize = true;
+    disableConfirmationPrompt = true;
+    historyLimit = 10000;
+    keyMode = "vi";
+    newSession = true;
+    extraConfig = ''
+      set-option -g status-position top
+      set-option -g default-terminal "screen-256color"
+      set-option -sa terminal-overrides ',xterm-termite:RGB'
+      set-option -sg escape-time 10
+      ${gruvboxTheme}
+    '';
+  };
+}
 #  vim:foldmethod=marker:foldlevel=0

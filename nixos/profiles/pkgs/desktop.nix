@@ -2,29 +2,49 @@
 
 {
   imports =
-  [
-    ./minimal.nix # parent
-  ];
+    [
+      ./minimal.nix # parent
+    ];
   environment.systemPackages = with pkgs; [
     # document/Image viewer
-    zathura feh
+    zathura
+    feh
     # gnupg
-    gnupg gpa pinentry
+    gnupg
+    gpa
+    pinentry
     # xorg tools
-    xclip xorg.xev xorg.xmodmap arandr
+    xclip
+    xorg.xev
+    xorg.xmodmap
+    arandr
     # browser
-    chromium google-chrome firefox qutebrowser
+    chromium
+    google-chrome
+    firefox
+    qutebrowser
     # communication
-    signal-desktop slack riot-desktop gnome3.evolution aspellDicts.de aspellDicts.en
+    signal-desktop
+    slack
+    riot-desktop
+    gnome3.evolution
+    aspellDicts.de
+    aspellDicts.en
     # libnotify
-    libnotify dunst
+    libnotify
+    dunst
     #video
-    mpv ffmpeg gstreamer gst-python
+    mpv
+    ffmpeg
+    gstreamer
+    gst-python
     #NetworkManager
     networkmanager-openvpn
     #password manager
-    keepassxc pass
+    keepassxc
+    pass
     #misc
-    gparted pavucontrol
+    gparted
+    pavucontrol
   ];
 }

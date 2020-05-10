@@ -10,4 +10,3 @@
     yubikey-manager-qt
   ];
 }
-

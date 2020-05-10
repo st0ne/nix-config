@@ -31,7 +31,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   services.resolved.dnssec = "false";
-  nix.trustedUsers = ["sylv"];
+  nix.trustedUsers = [ "sylv" ];
 
   ### GENERAL ##################################################################
   hostname = "T580";

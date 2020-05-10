@@ -16,6 +16,6 @@
               Driver "libinput"
               Option "AccelSpeed" "1"
       EndSection
-      '';
+    '';
   };
 }

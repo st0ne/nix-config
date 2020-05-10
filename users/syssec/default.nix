@@ -4,6 +4,6 @@ let
   creds = import ./secrets/creds.nix;
 in
 {
-  imports =[ ../. ];
+  imports = [ ../. ];
   users.users.syssec = import ./user.nix;
 }

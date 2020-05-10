@@ -20,7 +20,7 @@ in
           type = types.bool;
           default = true;
           description = ''
-          enable ssh
+            enable ssh
           '';
         };
         avahi = mkOption {
@@ -33,21 +33,21 @@ in
           type = types.bool;
           default = false;
           description = ''
-          enable serial console
+            enable serial console
           '';
         };
         device = mkOption {
           type = types.string;
           default = "ttyS0";
           description = ''
-          serial device
+            serial device
           '';
         };
         baud = mkOption {
           type = types.int;
           default = 115200;
           description = ''
-          serial console baudrate
+            serial console baudrate
           '';
         };
       };

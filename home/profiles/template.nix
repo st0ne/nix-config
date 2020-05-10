@@ -1,10 +1,8 @@
 { pkgs, ... }:
 
 let
-  templateConfigs = [
-  ];
-  templatePkgs = with pkgs; [
-  ];
+  templateConfigs = [];
+  templatePkgs = with pkgs; [];
 in
 {
   imports = templateConfigs;

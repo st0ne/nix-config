@@ -2,6 +2,10 @@
 
 {
   environment.systemPackages = with pkgs; [
-    curl dhcpcd file htop rsync
+    curl
+    dhcpcd
+    file
+    htop
+    rsync
   ];
 }

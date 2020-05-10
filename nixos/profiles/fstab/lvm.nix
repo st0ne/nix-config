@@ -15,11 +15,11 @@ let
     device = "/dev/${config.host.name}/home";
     preLVM = false;
   };
-   cryptDevices =
-     lib.optional config.host.boot.encryptData cryptData ++
-     lib.optional config.host.boot.encryptHome cryptHome;
+  cryptDevices =
+    lib.optional config.host.boot.encryptData cryptData ++ lib.optional config.host.boot.encryptHome cryptHome;
 
-in {
+in
+{
 
   # add cryptdevices
   boot.initrd.luks.devices = cryptDevices;

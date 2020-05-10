@@ -26,31 +26,31 @@ let
     # Prompt {{{
     export PS1="\n\[\033[1;37m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\] "
     # }}}
-    '';
+  '';
 in
-  {
-    programs.bash = {
-      enable = true;
-      initExtra = ''
-        ${bashCompletion}
-        ${bashPrompt}
-        '';
-      historyControl = [
-        "erasedups"
-        "ignoredups"
-        "ignorespace"
-      ];
-      historyIgnore = [
-        "reboot"
-        "shutdown"
-      ];
-      shellAliases = {
-        ssh = "TERM=xterm-color ssh";
-      };
-      sessionVariables = {
-        # grep color
-        GREP_COLORS = "auto";
-      };
+{
+  programs.bash = {
+    enable = true;
+    initExtra = ''
+      ${bashCompletion}
+      ${bashPrompt}
+    '';
+    historyControl = [
+      "erasedups"
+      "ignoredups"
+      "ignorespace"
+    ];
+    historyIgnore = [
+      "reboot"
+      "shutdown"
+    ];
+    shellAliases = {
+      ssh = "TERM=xterm-color ssh";
     };
-  }
+    sessionVariables = {
+      # grep color
+      GREP_COLORS = "auto";
+    };
+  };
+}
 # vim:foldmethod=marker:foldlevel=0

@@ -7,13 +7,13 @@
     {
       output = "DSI-1";
       monitorConfig = ''
-      Option "Rotate" "right"
+        Option "Rotate" "right"
       '';
     }
     {
       output = "DSI1";
       monitorConfig = ''
-      Option "Rotate" "right"
+        Option "Rotate" "right"
       '';
     }
   ];
@@ -25,7 +25,7 @@
       Option "ScrollMethod" "button"
       Option "MiddleEmulation" "on"
     EndSection
-    '';
+  '';
   # disable power management for touchpad and audio speakers
   services.tlp.extraConfig = ''
     USB_BLACKLIST="6080:8061"
