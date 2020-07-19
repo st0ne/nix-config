@@ -39,7 +39,7 @@ let
   url = {
     x86_64-linux = "https://www.segger.com/downloads/jlink/JLink_Linux_V${jlinkVersion}_x86_64.tgz";
     i686-linux = "https://www.segger.com/downloads/jlink/JLink_Linux_V${jlinkVersion}_i386.tgz";
-    armv7l-linux = "https://www.segger.com/downloads/jlink/JLink_Linux_V${jlinkVersion_arm.tgz";
+    armv7l-linux = "https://www.segger.com/downloads/jlink/JLink_Linux_V${jlinkVersion}_arm.tgz";
   }.${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
 in
 
