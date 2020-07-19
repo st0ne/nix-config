@@ -1,5 +1,5 @@
 { stdenv
-, requireFile
+, fetchurl
 , autoPatchelfHook
 , substituteAll
 , qt4
@@ -20,7 +20,10 @@
 
 #PR: https://github.com/NixOS/nixpkgs/pull/80990
 
+
 let
+  jlinkVersion = "680e";
+
   architecture = {
     x86_64-linux = "x86_64";
     i686-linux = "i386";
@@ -28,20 +31,26 @@ let
   }.${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
 
   sha256 = {
-    x86_64-linux = "0vc7x6kjs92p6qdsn2lazmvlw7npz1z7r9ipj85wd123m7hgwnmg";
-    i686-linux = "01qm56jyac3mzjny1z5lynik8y4hqrfq93n8119mvj6d4xiknv8y";
-    armv7l-linux = "03l2zkfjw7z6j6nsdw6j4nxxzh8mgby8qrc179qjcajbdr3hmbr7";
+    x86_64-linux = "0vzzd9vz433zb89rr1y2gidx8d1lkjymmqqh8jb5gw9wfdncdqjz";
+    i686-linux = "0wfb5w237ci4zgygydizlji07w8vq0pjaywfibk4fgnnr5qbi25i";
+    armv7l-linux = "1xwq1ylr6i93qkxrwbk8jv5wa2lvi9ys6zk19ngna7wgwr350nsb";
+  }.${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
+
+  url = {
+    x86_64-linux = "https://www.segger.com/downloads/jlink/JLink_Linux_V${jlinkVersion}_x86_64.tgz";
+    i686-linux = "https://www.segger.com/downloads/jlink/JLink_Linux_V${jlinkVersion}_i386.tgz";
+    armv7l-linux = "https://www.segger.com/downloads/jlink/JLink_Linux_V${jlinkVersion_arm.tgz";
   }.${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
 in
 
 stdenv.mkDerivation rec {
   pname = "jlink";
-  version = "V662d";
+  version = jlinkVersion;
 
-  src = requireFile {
-    name = "JLink_Linux_${version}_${architecture}.tgz";
-    url = "https://www.segger.com/downloads/jlink#J-LinkSoftwareAndDocumentationPack";
+  src = fetchurl {
+    url = url;
     sha256 = sha256;
+    curlOpts = "-d accept_license_agreement=accepted -d non_emb_ctr=confirmed";
   };
 
   dontConfigure = true;
